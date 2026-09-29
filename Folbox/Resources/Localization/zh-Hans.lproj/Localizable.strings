@@ -1,0 +1,158 @@
+/* Folbox */
+"folbox.window.about" = "关于 %@";
+
+"folbox.menu.create_component" = "文件夹";
+"folbox.menu.check_updates" = "检查更新";
+"folbox.menu.about" = "关于";
+"folbox.menu.more" = "更多";
+
+"folbox.about.description" = "一个用于快速访问文件的桌面组件应用。";
+"folbox.about.github" = "GitHub";
+"folbox.about.feedback" = "反馈";
+"folbox.about.privacy" = "隐私政策";
+"folbox.about.disclaimer" = "免责声明";
+"folbox.about.copyright" = "© %@ XenRoam";
+"folbox.about.version_build" = "版本 %@ (%@)";
+
+"folbox.common.ok" = "OK";
+"folbox.common.cancel" = "取消";
+"folbox.common.confirm" = "确认";
+"folbox.common.close" = "关闭";
+"folbox.common.save" = "保存";
+"folbox.common.create" = "创建";
+"folbox.common.delete" = "删除";
+"folbox.common.clear" = "清除";
+"folbox.common.choose" = "选择";
+"folbox.common.not_set" = "未设置";
+
+"folbox.update.unavailable_title" = "无法检查更新";
+"folbox.update.unavailable_message" = "此构建版本不可用 Sparkle 更新功能。";
+
+"folbox.settings.page.general" = "通用";
+"folbox.settings.page.layout" = "布局";
+"folbox.settings.page.appearance" = "外观";
+"folbox.settings.language" = "语言";
+"folbox.settings.launch_at_login" = "开机启动";
+"folbox.settings.single_click_opens_file" = "单击打开文件";
+"folbox.settings.animation_duration" = "动画时长";
+"folbox.settings.custom_storage_location" = "自定义存储位置";
+"folbox.settings.not_selected" = "未选择";
+"folbox.settings.change" = "更改";
+"folbox.settings.sponsor_support" = "赞助支持";
+"folbox.settings.title_position" = "标题位置";
+"folbox.settings.file_list_display" = "文件列表显示";
+"folbox.settings.expand_direction" = "展开方向";
+"folbox.settings.scroll_behavior" = "滚动行为";
+"folbox.settings.collapsed_columns" = "收起列数";
+"folbox.settings.expanded_columns" = "展开列数";
+"folbox.settings.expanded_rows" = "展开行数";
+"folbox.settings.file_tile_size" = "文件卡片大小";
+"folbox.settings.collapsed_background_opacity" = "收起背景透明度";
+"folbox.settings.expanded_background_opacity" = "展开背景透明度";
+"folbox.settings.component_opacity" = "组件透明度";
+"folbox.settings.panel_blur" = "面板模糊";
+"folbox.settings.show_file_tile_border" = "显示文件卡片边框";
+"folbox.settings.shortcut" = "快捷键";
+"folbox.settings.press_shortcut" = "请按下快捷键...";
+"folbox.settings.choose_storage_folder" = "选择存储文件夹";
+
+"folbox.settings.option.title_top" = "顶部";
+"folbox.settings.option.title_bottom" = "底部";
+"folbox.settings.option.title_left" = "左侧";
+"folbox.settings.option.title_right" = "右侧";
+"folbox.settings.option.scroll_down_expands" = "向下滚动展开";
+"folbox.settings.option.scroll_up_expands" = "向上滚动展开";
+"folbox.settings.option.expand_left" = "向左展开";
+"folbox.settings.option.expand_right" = "向右展开";
+"folbox.settings.option.horizontal" = "横向";
+"folbox.settings.option.vertical" = "纵向";
+"folbox.settings.option.language_system" = "跟随系统";
+"folbox.settings.option.language_english" = "English";
+"folbox.settings.option.language_chinese_simplified" = "简体中文";
+"folbox.settings.option.language_chinese_traditional" = "繁体中文";
+
+"folbox.component_config.create_title" = "创建组件";
+"folbox.component_config.edit_title" = "组件设置";
+"folbox.component_config.this_component" = "该";
+"folbox.component_config.name_placeholder" = "组件名称";
+"folbox.component_config.use_custom_collapsed_columns" = "使用自定义收起列数";
+"folbox.component_config.delete_title" = "删除组件";
+"folbox.component_config.delete_message" = "确定要删除“%@”组件吗？";
+"folbox.component_config.delete_blocked_title" = "无法删除";
+"folbox.component_config.move_files_title" = "删除前先移动文件";
+"folbox.component_config.move_files_message" = "此组件包含文件。请先将文件移动到其他文件夹，再删除此组件。";
+"folbox.component_config.delete_cancelled_message" = "已取消删除，文件仍保留在该组件中。";
+"folbox.component_config.move_files_failed_message" = "部分文件未能成功移出。请确保组件已清空后再删除。";
+"folbox.component_config.delete_failed_message" = "删除失败，组件中仍有文件。";
+"folbox.component_config.move_files_picker_message" = "请选择目标文件夹，用于移出该组件中的所有文件。";
+"folbox.component_config.move_files_prompt" = "移动文件";
+
+"folbox.component_panel.not_found" = "未找到组件。";
+"folbox.component_panel.import_failed_title" = "导入失败";
+
+"folbox.component.default_name" = "组件";
+"folbox.component.import_app_permission_failed" = "无法为该应用保存权限。";
+
+"folbox.accessibility.toggle" = "开关";
+"folbox.accessibility.on" = "开";
+"folbox.accessibility.off" = "关";
+
+"folbox.keyboard.page_up" = "上翻页";
+"folbox.keyboard.forward_delete" = "向前删除";
+"folbox.keyboard.page_down" = "下翻页";
+"folbox.keyboard.left_arrow" = "左方向键";
+"folbox.keyboard.right_arrow" = "右方向键";
+"folbox.keyboard.down_arrow" = "下方向键";
+"folbox.keyboard.up_arrow" = "上方向键";
+"folbox.keyboard.modifier.command" = "Command";
+"folbox.keyboard.modifier.control" = "Control";
+"folbox.keyboard.modifier.option" = "Option";
+"folbox.keyboard.modifier.shift" = "Shift";
+"folbox.keyboard.tab" = "Tab";
+"folbox.keyboard.space" = "空格";
+"folbox.keyboard.delete" = "删除";
+"folbox.keyboard.escape" = "Escape";
+"folbox.keyboard.decimal" = "小数点";
+"folbox.keyboard.multiply" = "乘号";
+"folbox.keyboard.plus" = "加号";
+"folbox.keyboard.clear" = "清除";
+"folbox.keyboard.divide" = "除号";
+"folbox.keyboard.enter" = "回车";
+"folbox.keyboard.minus" = "减号";
+"folbox.keyboard.equals" = "等号";
+"folbox.keyboard.numpad" = "数字键盘 %@";
+"folbox.keyboard.help" = "帮助";
+"folbox.keyboard.home" = "Home";
+"folbox.keyboard.end" = "End";
+"folbox.keyboard.key_code" = "按键 %@";
+
+"folbox.file_menu.open" = "打开";
+"folbox.file_menu.open_with" = "打开方式";
+"folbox.file_menu.reveal_in_finder" = "在访达中显示";
+"folbox.file_menu.get_info" = "显示简介";
+"folbox.file_menu.shortcut" = "快捷键";
+"folbox.file_menu.copy" = "拷贝";
+"folbox.file_menu.copy_file_name" = "拷贝文件名";
+"folbox.file_menu.copy_file_path" = "拷贝文件路径";
+"folbox.file_menu.rename" = "重命名";
+"folbox.file_menu.duplicate" = "复制";
+"folbox.file_menu.compress" = "压缩";
+"folbox.file_menu.remove_link" = "移除链接";
+"folbox.file_menu.move_to_trash" = "移到废纸篓";
+"folbox.file_menu.no_compatible_apps" = "没有兼容的应用";
+
+"folbox.file_info.file" = "文件";
+"folbox.file_info.folder" = "文件夹";
+"folbox.file_info.type" = "种类";
+"folbox.file_info.size" = "大小";
+"folbox.file_info.created" = "创建时间";
+"folbox.file_info.modified" = "修改时间";
+"folbox.file_info.path" = "路径";
+
+"folbox.rename.title" = "重命名";
+"folbox.rename.name" = "名称";
+"folbox.rename.placeholder" = "文件名";
+"folbox.rename.confirm" = "重命名";
+
+"folbox.file_shortcut.window_title" = "\"%@\" 快捷键";
+"folbox.file_shortcut.press_escape" = "按 Escape 取消录制。";

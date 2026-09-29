@@ -1,0 +1,158 @@
+/* Folbox */
+"folbox.window.about" = "About %@";
+
+"folbox.menu.create_component" = "Folder";
+"folbox.menu.check_updates" = "Check for Updates";
+"folbox.menu.about" = "About";
+"folbox.menu.more" = "More";
+
+"folbox.about.description" = "A desktop component app for quick file access.";
+"folbox.about.github" = "GitHub";
+"folbox.about.feedback" = "Feedback";
+"folbox.about.privacy" = "Privacy Policy";
+"folbox.about.disclaimer" = "Disclaimer";
+"folbox.about.copyright" = "© %@ XenRoam";
+"folbox.about.version_build" = "Version %@ (%@)";
+
+"folbox.common.ok" = "OK";
+"folbox.common.cancel" = "Cancel";
+"folbox.common.confirm" = "Confirm";
+"folbox.common.close" = "Close";
+"folbox.common.save" = "Save";
+"folbox.common.create" = "Create";
+"folbox.common.delete" = "Delete";
+"folbox.common.clear" = "Clear";
+"folbox.common.choose" = "Choose";
+"folbox.common.not_set" = "Not Set";
+
+"folbox.update.unavailable_title" = "Update Check Unavailable";
+"folbox.update.unavailable_message" = "Sparkle is not available in this build.";
+
+"folbox.settings.page.general" = "General";
+"folbox.settings.page.layout" = "Layout";
+"folbox.settings.page.appearance" = "Appearance";
+"folbox.settings.language" = "Language";
+"folbox.settings.launch_at_login" = "Launch at Login";
+"folbox.settings.single_click_opens_file" = "Single Click Opens File";
+"folbox.settings.animation_duration" = "Animation Duration";
+"folbox.settings.custom_storage_location" = "Custom Storage Location";
+"folbox.settings.not_selected" = "Not Selected";
+"folbox.settings.change" = "Change";
+"folbox.settings.sponsor_support" = "Sponsor Support";
+"folbox.settings.title_position" = "Title Position";
+"folbox.settings.file_list_display" = "File List Display";
+"folbox.settings.expand_direction" = "Expand Direction";
+"folbox.settings.scroll_behavior" = "Scroll Behavior";
+"folbox.settings.collapsed_columns" = "Collapsed Columns";
+"folbox.settings.expanded_columns" = "Expanded Columns";
+"folbox.settings.expanded_rows" = "Expanded Rows";
+"folbox.settings.file_tile_size" = "File Tile Size";
+"folbox.settings.collapsed_background_opacity" = "Collapsed Background Opacity";
+"folbox.settings.expanded_background_opacity" = "Expanded Background Opacity";
+"folbox.settings.component_opacity" = "Component Opacity";
+"folbox.settings.panel_blur" = "Panel Blur";
+"folbox.settings.show_file_tile_border" = "Show File Tile Border";
+"folbox.settings.shortcut" = "Shortcut";
+"folbox.settings.press_shortcut" = "Press Shortcut...";
+"folbox.settings.choose_storage_folder" = "Choose Storage Folder";
+
+"folbox.settings.option.title_top" = "Top";
+"folbox.settings.option.title_bottom" = "Bottom";
+"folbox.settings.option.title_left" = "Left";
+"folbox.settings.option.title_right" = "Right";
+"folbox.settings.option.scroll_down_expands" = "Scroll Down Expands";
+"folbox.settings.option.scroll_up_expands" = "Scroll Up Expands";
+"folbox.settings.option.expand_left" = "Expand Left";
+"folbox.settings.option.expand_right" = "Expand Right";
+"folbox.settings.option.horizontal" = "Horizontal";
+"folbox.settings.option.vertical" = "Vertical";
+"folbox.settings.option.language_system" = "System";
+"folbox.settings.option.language_english" = "English";
+"folbox.settings.option.language_chinese_simplified" = "Chinese (Simplified)";
+"folbox.settings.option.language_chinese_traditional" = "Chinese (Traditional)";
+
+"folbox.component_config.create_title" = "Create Component";
+"folbox.component_config.edit_title" = "Component Settings";
+"folbox.component_config.this_component" = "this";
+"folbox.component_config.name_placeholder" = "Component Name";
+"folbox.component_config.use_custom_collapsed_columns" = "Use Custom Collapsed Columns";
+"folbox.component_config.delete_title" = "Delete Component";
+"folbox.component_config.delete_message" = "Are you sure you want to delete \"%@\" component?";
+"folbox.component_config.delete_blocked_title" = "Delete Blocked";
+"folbox.component_config.move_files_title" = "Move Files Before Delete";
+"folbox.component_config.move_files_message" = "This component contains files. Move them to another folder before deleting this component.";
+"folbox.component_config.delete_cancelled_message" = "Deletion canceled. Files are still in this component.";
+"folbox.component_config.move_files_failed_message" = "Some files could not be moved out. Please ensure the component is empty before deleting.";
+"folbox.component_config.delete_failed_message" = "Deletion failed because files are still present.";
+"folbox.component_config.move_files_picker_message" = "Select a destination folder to move all files out of this component.";
+"folbox.component_config.move_files_prompt" = "Move Files";
+
+"folbox.component_panel.not_found" = "Component not found.";
+"folbox.component_panel.import_failed_title" = "Import Failed";
+
+"folbox.component.default_name" = "Component";
+"folbox.component.import_app_permission_failed" = "Failed to store permission for the application.";
+
+"folbox.accessibility.toggle" = "Toggle";
+"folbox.accessibility.on" = "On";
+"folbox.accessibility.off" = "Off";
+
+"folbox.keyboard.page_up" = "Page Up";
+"folbox.keyboard.forward_delete" = "Forward Delete";
+"folbox.keyboard.page_down" = "Page Down";
+"folbox.keyboard.left_arrow" = "Left Arrow";
+"folbox.keyboard.right_arrow" = "Right Arrow";
+"folbox.keyboard.down_arrow" = "Down Arrow";
+"folbox.keyboard.up_arrow" = "Up Arrow";
+"folbox.keyboard.modifier.command" = "Command";
+"folbox.keyboard.modifier.control" = "Control";
+"folbox.keyboard.modifier.option" = "Option";
+"folbox.keyboard.modifier.shift" = "Shift";
+"folbox.keyboard.tab" = "Tab";
+"folbox.keyboard.space" = "Space";
+"folbox.keyboard.delete" = "Delete";
+"folbox.keyboard.escape" = "Escape";
+"folbox.keyboard.decimal" = "Decimal";
+"folbox.keyboard.multiply" = "Multiply";
+"folbox.keyboard.plus" = "Plus";
+"folbox.keyboard.clear" = "Clear";
+"folbox.keyboard.divide" = "Divide";
+"folbox.keyboard.enter" = "Enter";
+"folbox.keyboard.minus" = "Minus";
+"folbox.keyboard.equals" = "Equals";
+"folbox.keyboard.numpad" = "Numpad %@";
+"folbox.keyboard.help" = "Help";
+"folbox.keyboard.home" = "Home";
+"folbox.keyboard.end" = "End";
+"folbox.keyboard.key_code" = "Key %@";
+
+"folbox.file_menu.open" = "Open";
+"folbox.file_menu.open_with" = "Open With";
+"folbox.file_menu.reveal_in_finder" = "Reveal in Finder";
+"folbox.file_menu.get_info" = "Get Info";
+"folbox.file_menu.shortcut" = "Shortcut";
+"folbox.file_menu.copy" = "Copy";
+"folbox.file_menu.copy_file_name" = "Copy File Name";
+"folbox.file_menu.copy_file_path" = "Copy File Path";
+"folbox.file_menu.rename" = "Rename";
+"folbox.file_menu.duplicate" = "Duplicate";
+"folbox.file_menu.compress" = "Compress";
+"folbox.file_menu.remove_link" = "Remove Link";
+"folbox.file_menu.move_to_trash" = "Move to Trash";
+"folbox.file_menu.no_compatible_apps" = "No Compatible Apps";
+
+"folbox.file_info.file" = "File";
+"folbox.file_info.folder" = "Folder";
+"folbox.file_info.type" = "Type";
+"folbox.file_info.size" = "Size";
+"folbox.file_info.created" = "Created";
+"folbox.file_info.modified" = "Modified";
+"folbox.file_info.path" = "Path";
+
+"folbox.rename.title" = "Rename";
+"folbox.rename.name" = "Name";
+"folbox.rename.placeholder" = "File name";
+"folbox.rename.confirm" = "Rename";
+
+"folbox.file_shortcut.window_title" = "\"%@\" Shortcut";
+"folbox.file_shortcut.press_escape" = "Press Escape to cancel recording.";

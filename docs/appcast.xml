@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Folbox</title>
+        <item>
+            <title>1.0</title>
+            <pubDate>Mon, 28 Sep 2026 02:30:48 +0800</pubDate>
+            <sparkle:version>1</sparkle:version>
+            <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/xenroam/Folbox/releases/download/v1.0/Folbox-1.0.dmg" length="4490365" type="application/octet-stream" sparkle:edSignature="XCRC2ZR1Y/WQRjopew0GeAOZakHdKmbaeF9DdZ5sWFb5pDZkzSwdfcwoFvjpHqsvAYOQvGneXywpoc9n5i7iBA=="/>
+        </item>
+    </channel>
+</rss>

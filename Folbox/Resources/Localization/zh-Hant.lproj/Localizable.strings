@@ -1,0 +1,158 @@
+/* Folbox */
+"folbox.window.about" = "關於 %@";
+
+"folbox.menu.create_component" = "資料夾";
+"folbox.menu.check_updates" = "檢查更新";
+"folbox.menu.about" = "關於";
+"folbox.menu.more" = "更多";
+
+"folbox.about.description" = "一個用於快速存取檔案的桌面元件應用程式。";
+"folbox.about.github" = "GitHub";
+"folbox.about.feedback" = "意見回饋";
+"folbox.about.privacy" = "隱私政策";
+"folbox.about.disclaimer" = "免責聲明";
+"folbox.about.copyright" = "© %@ XenRoam";
+"folbox.about.version_build" = "版本 %@ (%@)";
+
+"folbox.common.ok" = "OK";
+"folbox.common.cancel" = "取消";
+"folbox.common.confirm" = "確認";
+"folbox.common.close" = "關閉";
+"folbox.common.save" = "儲存";
+"folbox.common.create" = "建立";
+"folbox.common.delete" = "刪除";
+"folbox.common.clear" = "清除";
+"folbox.common.choose" = "選擇";
+"folbox.common.not_set" = "未設定";
+
+"folbox.update.unavailable_title" = "無法檢查更新";
+"folbox.update.unavailable_message" = "此建置版本無法使用 Sparkle 更新功能。";
+
+"folbox.settings.page.general" = "一般";
+"folbox.settings.page.layout" = "版面";
+"folbox.settings.page.appearance" = "外觀";
+"folbox.settings.language" = "語言";
+"folbox.settings.launch_at_login" = "登入時啟動";
+"folbox.settings.single_click_opens_file" = "單擊開啟檔案";
+"folbox.settings.animation_duration" = "動畫時長";
+"folbox.settings.custom_storage_location" = "自訂儲存位置";
+"folbox.settings.not_selected" = "未選擇";
+"folbox.settings.change" = "變更";
+"folbox.settings.sponsor_support" = "贊助支持";
+"folbox.settings.title_position" = "標題位置";
+"folbox.settings.file_list_display" = "檔案清單顯示";
+"folbox.settings.expand_direction" = "展開方向";
+"folbox.settings.scroll_behavior" = "捲動行為";
+"folbox.settings.collapsed_columns" = "收合欄數";
+"folbox.settings.expanded_columns" = "展開欄數";
+"folbox.settings.expanded_rows" = "展開列數";
+"folbox.settings.file_tile_size" = "檔案卡片大小";
+"folbox.settings.collapsed_background_opacity" = "收合背景透明度";
+"folbox.settings.expanded_background_opacity" = "展開背景透明度";
+"folbox.settings.component_opacity" = "元件透明度";
+"folbox.settings.panel_blur" = "面板模糊";
+"folbox.settings.show_file_tile_border" = "顯示檔案卡片邊框";
+"folbox.settings.shortcut" = "快捷鍵";
+"folbox.settings.press_shortcut" = "請按下快捷鍵...";
+"folbox.settings.choose_storage_folder" = "選擇儲存資料夾";
+
+"folbox.settings.option.title_top" = "頂部";
+"folbox.settings.option.title_bottom" = "底部";
+"folbox.settings.option.title_left" = "左側";
+"folbox.settings.option.title_right" = "右側";
+"folbox.settings.option.scroll_down_expands" = "向下捲動展開";
+"folbox.settings.option.scroll_up_expands" = "向上捲動展開";
+"folbox.settings.option.expand_left" = "向左展開";
+"folbox.settings.option.expand_right" = "向右展開";
+"folbox.settings.option.horizontal" = "橫向";
+"folbox.settings.option.vertical" = "縱向";
+"folbox.settings.option.language_system" = "跟隨系統";
+"folbox.settings.option.language_english" = "English";
+"folbox.settings.option.language_chinese_simplified" = "簡體中文";
+"folbox.settings.option.language_chinese_traditional" = "繁體中文";
+
+"folbox.component_config.create_title" = "建立元件";
+"folbox.component_config.edit_title" = "元件設定";
+"folbox.component_config.this_component" = "此";
+"folbox.component_config.name_placeholder" = "元件名稱";
+"folbox.component_config.use_custom_collapsed_columns" = "使用自訂收合欄數";
+"folbox.component_config.delete_title" = "刪除元件";
+"folbox.component_config.delete_message" = "確定要刪除「%@」元件嗎？";
+"folbox.component_config.delete_blocked_title" = "無法刪除";
+"folbox.component_config.move_files_title" = "刪除前先移動檔案";
+"folbox.component_config.move_files_message" = "此元件包含檔案。請先將檔案移動到其他資料夾，再刪除此元件。";
+"folbox.component_config.delete_cancelled_message" = "已取消刪除，檔案仍保留在此元件中。";
+"folbox.component_config.move_files_failed_message" = "部分檔案未能成功移出。請確認元件已清空後再刪除。";
+"folbox.component_config.delete_failed_message" = "刪除失敗，元件中仍有檔案。";
+"folbox.component_config.move_files_picker_message" = "請選擇目標資料夾，用於移出此元件中的所有檔案。";
+"folbox.component_config.move_files_prompt" = "移動檔案";
+
+"folbox.component_panel.not_found" = "找不到元件。";
+"folbox.component_panel.import_failed_title" = "匯入失敗";
+
+"folbox.component.default_name" = "元件";
+"folbox.component.import_app_permission_failed" = "無法為該應用程式儲存權限。";
+
+"folbox.accessibility.toggle" = "切換";
+"folbox.accessibility.on" = "開";
+"folbox.accessibility.off" = "關";
+
+"folbox.keyboard.page_up" = "上翻頁";
+"folbox.keyboard.forward_delete" = "向前刪除";
+"folbox.keyboard.page_down" = "下翻頁";
+"folbox.keyboard.left_arrow" = "左方向鍵";
+"folbox.keyboard.right_arrow" = "右方向鍵";
+"folbox.keyboard.down_arrow" = "下方向鍵";
+"folbox.keyboard.up_arrow" = "上方向鍵";
+"folbox.keyboard.modifier.command" = "Command";
+"folbox.keyboard.modifier.control" = "Control";
+"folbox.keyboard.modifier.option" = "Option";
+"folbox.keyboard.modifier.shift" = "Shift";
+"folbox.keyboard.tab" = "Tab";
+"folbox.keyboard.space" = "空白鍵";
+"folbox.keyboard.delete" = "刪除";
+"folbox.keyboard.escape" = "Escape";
+"folbox.keyboard.decimal" = "小數點";
+"folbox.keyboard.multiply" = "乘號";
+"folbox.keyboard.plus" = "加號";
+"folbox.keyboard.clear" = "清除";
+"folbox.keyboard.divide" = "除號";
+"folbox.keyboard.enter" = "Enter";
+"folbox.keyboard.minus" = "減號";
+"folbox.keyboard.equals" = "等號";
+"folbox.keyboard.numpad" = "數字鍵盤 %@";
+"folbox.keyboard.help" = "說明";
+"folbox.keyboard.home" = "Home";
+"folbox.keyboard.end" = "End";
+"folbox.keyboard.key_code" = "按鍵 %@";
+
+"folbox.file_menu.open" = "開啟";
+"folbox.file_menu.open_with" = "開啟方式";
+"folbox.file_menu.reveal_in_finder" = "在 Finder 中顯示";
+"folbox.file_menu.get_info" = "顯示簡介";
+"folbox.file_menu.shortcut" = "快捷鍵";
+"folbox.file_menu.copy" = "拷貝";
+"folbox.file_menu.copy_file_name" = "拷貝檔名";
+"folbox.file_menu.copy_file_path" = "拷貝檔案路徑";
+"folbox.file_menu.rename" = "重新命名";
+"folbox.file_menu.duplicate" = "複製";
+"folbox.file_menu.compress" = "壓縮";
+"folbox.file_menu.remove_link" = "移除連結";
+"folbox.file_menu.move_to_trash" = "移至垃圾桶";
+"folbox.file_menu.no_compatible_apps" = "沒有相容的應用程式";
+
+"folbox.file_info.file" = "檔案";
+"folbox.file_info.folder" = "資料夾";
+"folbox.file_info.type" = "種類";
+"folbox.file_info.size" = "大小";
+"folbox.file_info.created" = "建立時間";
+"folbox.file_info.modified" = "修改時間";
+"folbox.file_info.path" = "路徑";
+
+"folbox.rename.title" = "重新命名";
+"folbox.rename.name" = "名稱";
+"folbox.rename.placeholder" = "檔名";
+"folbox.rename.confirm" = "重新命名";
+
+"folbox.file_shortcut.window_title" = "\"%@\" 快捷鍵";
+"folbox.file_shortcut.press_escape" = "按下 Escape 以取消錄製。";
