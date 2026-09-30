@@ -506,6 +506,7 @@ final class SettingsStore: ObservableObject {
         useCustomStorageLocation = true
         customStorageDisplayPath = resolvedCustomStorageURL()?.path
         reconcileSettingsStorage()
+        DesktopAutoMoveStore.shared.refreshServiceDestination(triggerImmediateScan: true)
         return true
     }
 
@@ -514,6 +515,7 @@ final class SettingsStore: ObservableObject {
         customStorageBookmarkData = nil
         customStorageDisplayPath = nil
         reconcileSettingsStorage()
+        DesktopAutoMoveStore.shared.refreshServiceDestination(triggerImmediateScan: true)
     }
 }
 

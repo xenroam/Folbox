@@ -36,6 +36,7 @@
 "folbox.settings.single_click_opens_file" = "單擊開啟檔案";
 "folbox.settings.animation_duration" = "動畫時長";
 "folbox.settings.custom_storage_location" = "自訂儲存位置";
+"folbox.settings.auto_move_desktop_files" = "自動移動桌面檔案";
 "folbox.settings.not_selected" = "未選擇";
 "folbox.settings.change" = "變更";
 "folbox.settings.sponsor_support" = "贊助支持";
@@ -55,6 +56,7 @@
 "folbox.settings.shortcut" = "快捷鍵";
 "folbox.settings.press_shortcut" = "請按下快捷鍵...";
 "folbox.settings.choose_storage_folder" = "選擇儲存資料夾";
+"folbox.settings.choose_auto_move_folder" = "選擇自動移動目標資料夾";
 
 "folbox.settings.option.title_top" = "頂部";
 "folbox.settings.option.title_bottom" = "底部";

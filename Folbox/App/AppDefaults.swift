@@ -11,6 +11,7 @@ enum AppDefaults {
         static let panelAnimationDuration = 0.2
         static let panelAnimationDurationRange: ClosedRange<Double> = 0.1...0.5
         static let useCustomStorageLocation = false
+        static let autoMoveDesktopFilesToStorage = false
 
         static let titlePosition: TitlePosition = .top
         static let fileListDisplayMode: FileListDisplayMode = .horizontal

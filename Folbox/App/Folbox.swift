@@ -6,6 +6,7 @@ struct Folbox: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @StateObject private var appSettings = SettingsStore.shared
     @StateObject private var instanceStore = ComponentStore.shared
+    @StateObject private var desktopAutoMoveStore = DesktopAutoMoveStore.shared
 
     private func statusBarIconImage(named name: String) -> NSImage {
         let targetSize = NSSize(width: 18, height: 18)
@@ -27,6 +28,7 @@ struct Folbox: App {
             MenuBarView()
                 .environmentObject(appSettings)
                 .environmentObject(instanceStore)
+                .environmentObject(desktopAutoMoveStore)
         } label: {
             Image(nsImage: statusBarIconImage(named: "StatusBarIcon"))
                 .renderingMode(.template)

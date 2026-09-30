@@ -4,6 +4,7 @@ import AppKit
 struct MenuBarView: View {
     @EnvironmentObject private var appSettings: SettingsStore
     @EnvironmentObject private var instanceStore: ComponentStore
+    @EnvironmentObject private var desktopAutoMoveStore: DesktopAutoMoveStore
 
     private func dismissMenuWindow() {
         NSApp.sendAction(#selector(NSMenu.cancelTracking), to: nil, from: nil)
@@ -62,6 +63,7 @@ struct MenuBarView: View {
             SettingsView()
                 .environmentObject(appSettings)
                 .environmentObject(instanceStore)
+                .environmentObject(desktopAutoMoveStore)
 
             HStack(spacing: 10) {
                 Menu {

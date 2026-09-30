@@ -21,6 +21,7 @@ struct SettingsView: View {
 
     @EnvironmentObject private var appSettings: SettingsStore
     @EnvironmentObject private var instanceStore: ComponentStore
+    @EnvironmentObject private var desktopAutoMoveStore: DesktopAutoMoveStore
     @StateObject private var shortcutManager = PanelShortcutManager.shared
 
     @State private var selectedPage: SettingsPage = .general
@@ -116,6 +117,26 @@ struct SettingsView: View {
                             Spacer(minLength: 12)
                             Button(appSettings.t("folbox.settings.change")) {
                                 chooseCustomStorageFolder()
+                            }
+                            .buttonStyle(.plain)
+                            .font(.system(size: 13, weight: .semibold))
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 10)
+                    }
+
+                    toggleRow(title: appSettings.t("folbox.settings.auto_move_desktop_files"), isOn: autoMoveToggleBinding)
+
+                    if desktopAutoMoveStore.isEnabled {
+                        HStack(spacing: 10) {
+                            Text(desktopAutoMoveStore.destinationDisplayPath ?? appSettings.t("folbox.settings.not_selected"))
+                                .font(.system(size: 13, weight: .regular))
+                                .lineLimit(1)
+                                .truncationMode(.middle)
+                                .foregroundStyle(.secondary)
+                            Spacer(minLength: 12)
+                            Button(appSettings.t("folbox.settings.change")) {
+                                chooseAutoMoveDestinationFolder(enableAfterChoosing: false)
                             }
                             .buttonStyle(.plain)
                             .font(.system(size: 13, weight: .semibold))
@@ -404,6 +425,19 @@ struct SettingsView: View {
         )
     }
 
+    private var autoMoveToggleBinding: Binding<Bool> {
+        Binding(
+            get: { desktopAutoMoveStore.isEnabled },
+            set: { newValue in
+                if newValue {
+                    chooseAutoMoveDestinationFolder(enableAfterChoosing: true)
+                } else {
+                    desktopAutoMoveStore.isEnabled = false
+                }
+            }
+        )
+    }
+
     private func chooseCustomStorageFolder() {
         let panel = NSOpenPanel()
         panel.title = appSettings.t("folbox.settings.choose_storage_folder")
@@ -412,6 +446,7 @@ struct SettingsView: View {
         panel.canChooseDirectories = true
         panel.allowsMultipleSelection = false
         panel.canCreateDirectories = true
+        panel.directoryURL = instanceStore.currentStorageRootURL
 
         NSApp.activate(ignoringOtherApps: true)
 
@@ -420,6 +455,37 @@ struct SettingsView: View {
         let oldRoot = instanceStore.currentStorageRootURL
         guard appSettings.setCustomStorageURL(url) else { return }
         instanceStore.relocateStorage(from: oldRoot, to: instanceStore.currentStorageRootURL)
+    }
+
+    private func chooseAutoMoveDestinationFolder(enableAfterChoosing: Bool) {
+        let panel = NSOpenPanel()
+        panel.title = appSettings.t("folbox.settings.choose_auto_move_folder")
+        panel.prompt = appSettings.t("folbox.common.choose")
+        panel.canChooseFiles = false
+        panel.canChooseDirectories = true
+        panel.allowsMultipleSelection = false
+        panel.canCreateDirectories = true
+        panel.directoryURL = instanceStore.currentStorageRootURL
+
+        NSApp.activate(ignoringOtherApps: true)
+
+        guard panel.runModal() == .OK, let url = panel.url else {
+            if enableAfterChoosing {
+                desktopAutoMoveStore.isEnabled = false
+            }
+            return
+        }
+
+        guard desktopAutoMoveStore.setDestinationURL(url) else {
+            if enableAfterChoosing {
+                desktopAutoMoveStore.isEnabled = false
+            }
+            return
+        }
+
+        if enableAfterChoosing {
+            desktopAutoMoveStore.isEnabled = true
+        }
     }
 
     private func openSponsorPage() {

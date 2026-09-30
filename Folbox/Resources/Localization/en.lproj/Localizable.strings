@@ -36,6 +36,7 @@
 "folbox.settings.single_click_opens_file" = "Single Click Opens File";
 "folbox.settings.animation_duration" = "Animation Duration";
 "folbox.settings.custom_storage_location" = "Custom Storage Location";
+"folbox.settings.auto_move_desktop_files" = "Auto Move Desktop Files";
 "folbox.settings.not_selected" = "Not Selected";
 "folbox.settings.change" = "Change";
 "folbox.settings.sponsor_support" = "Sponsor Support";
@@ -55,6 +56,7 @@
 "folbox.settings.shortcut" = "Shortcut";
 "folbox.settings.press_shortcut" = "Press Shortcut...";
 "folbox.settings.choose_storage_folder" = "Choose Storage Folder";
+"folbox.settings.choose_auto_move_folder" = "Choose Auto Move Folder";
 
 "folbox.settings.option.title_top" = "Top";
 "folbox.settings.option.title_bottom" = "Bottom";
