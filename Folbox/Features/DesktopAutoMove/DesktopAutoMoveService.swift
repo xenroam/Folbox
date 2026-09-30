@@ -86,7 +86,7 @@ final class DesktopAutoMoveService {
             &context,
             [desktopURL.path] as CFArray,
             FSEventStreamEventId(kFSEventStreamEventIdSinceNow),
-            0.5,
+            0.1,
             flags
         ) else {
             watchedDesktopURL = nil
@@ -128,7 +128,7 @@ final class DesktopAutoMoveService {
             return
         }
 
-        scheduleDesktopScan(delay: 0.35)
+        scheduleDesktopScan(delay: 0.1)
     }
 
     private func scheduleDesktopScan(delay: TimeInterval) {
