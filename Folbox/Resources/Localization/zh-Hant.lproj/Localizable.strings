@@ -57,6 +57,17 @@
 "folbox.settings.press_shortcut" = "請按下快捷鍵...";
 "folbox.settings.choose_storage_folder" = "選擇儲存資料夾";
 "folbox.settings.choose_auto_move_folder" = "選擇自動移動目標資料夾";
+"folbox.settings.choose_desktop_access_folder" = "選擇桌面權限資料夾";
+"folbox.settings.authorize_desktop_access" = "授權桌面存取";
+"folbox.settings.reauthorize_desktop_access" = "重新授權";
+"folbox.settings.auto_move_permission_required_title" = "需要桌面存取權限";
+"folbox.settings.auto_move_permission_required_message" = "自動移動桌面檔案功能需要存取桌面資料夾。請先授權桌面存取權限。";
+"folbox.settings.auto_move_permission_missing_title" = "未取得桌面存取權限";
+"folbox.settings.auto_move_permission_missing_message" = "尚未取得桌面存取權限。此功能無法啟用，請先完成授權。";
+"folbox.settings.auto_move_permission_granted_title" = "桌面存取權限已授予";
+"folbox.settings.auto_move_permission_granted_message" = "已取得桌面存取權限。請繼續選擇桌面檔案自動移動到的目標資料夾。";
+"folbox.settings.auto_move_permission_available_title" = "已具備桌面存取權限";
+"folbox.settings.auto_move_permission_available_message" = "目前已具備桌面存取權限。請繼續選擇桌面檔案自動移動到的目標資料夾。";
 
 "folbox.settings.option.title_top" = "頂部";
 "folbox.settings.option.title_bottom" = "底部";

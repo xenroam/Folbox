@@ -136,7 +136,7 @@ struct SettingsView: View {
                                 .foregroundStyle(.secondary)
                             Spacer(minLength: 12)
                             Button(appSettings.t("folbox.settings.change")) {
-                                chooseAutoMoveDestinationFolder(enableAfterChoosing: false)
+                                _ = chooseAutoMoveDestinationFolder(enableAfterChoosing: false)
                             }
                             .buttonStyle(.plain)
                             .font(.system(size: 13, weight: .semibold))
@@ -430,12 +430,127 @@ struct SettingsView: View {
             get: { desktopAutoMoveStore.isEnabled },
             set: { newValue in
                 if newValue {
-                    chooseAutoMoveDestinationFolder(enableAfterChoosing: true)
+                    runAutoMoveEnableFlow()
                 } else {
                     desktopAutoMoveStore.isEnabled = false
                 }
             }
         )
+    }
+
+    private func runAutoMoveEnableFlow() {
+        if desktopAutoMoveStore.hasDesktopAccessPermission() {
+            guard presentAutoMoveChooseDestinationPrompt(hasJustAuthorized: false) else {
+                desktopAutoMoveStore.isEnabled = false
+                return
+            }
+
+            if !chooseAutoMoveDestinationFolder(enableAfterChoosing: true) {
+                desktopAutoMoveStore.isEnabled = false
+            }
+            return
+        }
+
+        guard requestDesktopAccessWithGuidance() else {
+            desktopAutoMoveStore.isEnabled = false
+            return
+        }
+
+        guard presentAutoMoveChooseDestinationPrompt(hasJustAuthorized: true) else {
+            desktopAutoMoveStore.isEnabled = false
+            return
+        }
+
+        if !chooseAutoMoveDestinationFolder(enableAfterChoosing: true) {
+            desktopAutoMoveStore.isEnabled = false
+        }
+    }
+
+    private func requestDesktopAccessWithGuidance() -> Bool {
+        while true {
+            guard presentDecisionAlert(
+                title: appSettings.t("folbox.settings.auto_move_permission_required_title"),
+                message: appSettings.t("folbox.settings.auto_move_permission_required_message"),
+                primaryButtonTitle: appSettings.t("folbox.settings.authorize_desktop_access"),
+                secondaryButtonTitle: appSettings.t("folbox.common.cancel")
+            ) else {
+                return false
+            }
+
+            if requestDesktopAccessFolderSelection() {
+                return true
+            }
+
+            let shouldRetry = presentDecisionAlert(
+                title: appSettings.t("folbox.settings.auto_move_permission_missing_title"),
+                message: appSettings.t("folbox.settings.auto_move_permission_missing_message"),
+                primaryButtonTitle: appSettings.t("folbox.settings.reauthorize_desktop_access"),
+                secondaryButtonTitle: appSettings.t("folbox.common.cancel")
+            )
+
+            if !shouldRetry {
+                return false
+            }
+        }
+    }
+
+    private func requestDesktopAccessFolderSelection() -> Bool {
+        guard let desktopURL = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask).first?.standardizedFileURL else {
+            return false
+        }
+
+        let panel = NSOpenPanel()
+        panel.title = appSettings.t("folbox.settings.choose_desktop_access_folder")
+        panel.prompt = appSettings.t("folbox.common.choose")
+        panel.canChooseFiles = false
+        panel.canChooseDirectories = true
+        panel.allowsMultipleSelection = false
+        panel.canCreateDirectories = false
+        panel.directoryURL = desktopURL
+
+        NSApp.activate(ignoringOtherApps: true)
+
+        guard panel.runModal() == .OK,
+              let selectedURL = panel.url?.standardizedFileURL,
+              selectedURL.resolvingSymlinksInPath().path == desktopURL.resolvingSymlinksInPath().path else {
+            return false
+        }
+
+        return desktopAutoMoveStore.setDesktopAccessURL(selectedURL)
+    }
+
+    private func presentAutoMoveChooseDestinationPrompt(hasJustAuthorized: Bool) -> Bool {
+        let titleKey = hasJustAuthorized
+            ? "folbox.settings.auto_move_permission_granted_title"
+            : "folbox.settings.auto_move_permission_available_title"
+        let messageKey = hasJustAuthorized
+            ? "folbox.settings.auto_move_permission_granted_message"
+            : "folbox.settings.auto_move_permission_available_message"
+
+        return presentDecisionAlert(
+            title: appSettings.t(titleKey),
+            message: appSettings.t(messageKey),
+            primaryButtonTitle: appSettings.t("folbox.common.choose"),
+            secondaryButtonTitle: appSettings.t("folbox.common.cancel")
+        )
+    }
+
+    private func presentDecisionAlert(
+        title: String,
+        message: String,
+        primaryButtonTitle: String,
+        secondaryButtonTitle: String
+    ) -> Bool {
+        let alert = NSAlert()
+        alert.alertStyle = .informational
+        alert.messageText = title
+        alert.informativeText = message
+        alert.addButton(withTitle: primaryButtonTitle)
+        alert.addButton(withTitle: secondaryButtonTitle)
+
+        NSApp.activate(ignoringOtherApps: true)
+
+        return alert.runModal() == .alertFirstButtonReturn
     }
 
     private func chooseCustomStorageFolder() {
@@ -457,7 +572,7 @@ struct SettingsView: View {
         instanceStore.relocateStorage(from: oldRoot, to: instanceStore.currentStorageRootURL)
     }
 
-    private func chooseAutoMoveDestinationFolder(enableAfterChoosing: Bool) {
+    private func chooseAutoMoveDestinationFolder(enableAfterChoosing: Bool) -> Bool {
         let panel = NSOpenPanel()
         panel.title = appSettings.t("folbox.settings.choose_auto_move_folder")
         panel.prompt = appSettings.t("folbox.common.choose")
@@ -473,19 +588,21 @@ struct SettingsView: View {
             if enableAfterChoosing {
                 desktopAutoMoveStore.isEnabled = false
             }
-            return
+            return false
         }
 
         guard desktopAutoMoveStore.setDestinationURL(url) else {
             if enableAfterChoosing {
                 desktopAutoMoveStore.isEnabled = false
             }
-            return
+            return false
         }
 
         if enableAfterChoosing {
             desktopAutoMoveStore.isEnabled = true
         }
+
+        return true
     }
 
     private func openSponsorPage() {

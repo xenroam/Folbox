@@ -57,6 +57,17 @@
 "folbox.settings.press_shortcut" = "请按下快捷键...";
 "folbox.settings.choose_storage_folder" = "选择存储文件夹";
 "folbox.settings.choose_auto_move_folder" = "选择自动移动目标文件夹";
+"folbox.settings.choose_desktop_access_folder" = "选择桌面权限文件夹";
+"folbox.settings.authorize_desktop_access" = "授权桌面访问";
+"folbox.settings.reauthorize_desktop_access" = "重新授权";
+"folbox.settings.auto_move_permission_required_title" = "需要桌面访问权限";
+"folbox.settings.auto_move_permission_required_message" = "自动移动桌面文件功能需要访问桌面目录。请先授权桌面访问权限。";
+"folbox.settings.auto_move_permission_missing_title" = "未获得桌面访问权限";
+"folbox.settings.auto_move_permission_missing_message" = "尚未获得桌面访问权限。此功能无法启动，请先完成授权。";
+"folbox.settings.auto_move_permission_granted_title" = "桌面访问权限已授予";
+"folbox.settings.auto_move_permission_granted_message" = "已获得桌面访问权限。请继续选择桌面文件自动转移到的目标文件夹。";
+"folbox.settings.auto_move_permission_available_title" = "已具备桌面访问权限";
+"folbox.settings.auto_move_permission_available_message" = "当前已具备桌面访问权限。请继续选择桌面文件自动转移到的目标文件夹。";
 
 "folbox.settings.option.title_top" = "顶部";
 "folbox.settings.option.title_bottom" = "底部";

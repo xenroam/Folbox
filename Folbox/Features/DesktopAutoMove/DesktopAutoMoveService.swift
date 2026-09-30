@@ -15,10 +15,10 @@ final class DesktopAutoMoveService {
 
     private init() {}
 
-    func setEnabled(_ enabled: Bool, destinationURL: URL?) {
+    func setEnabled(_ enabled: Bool, destinationURL: URL?, desktopURL: URL?) {
         guard isEnabled != enabled else {
             if enabled {
-                refreshDestination(destinationURL: destinationURL, triggerImmediateScan: false)
+                refreshConfiguration(destinationURL: destinationURL, desktopURL: desktopURL, triggerImmediateScan: false)
             }
             return
         }
@@ -26,32 +26,32 @@ final class DesktopAutoMoveService {
         isEnabled = enabled
 
         if enabled {
-            destinationRootURL = destinationURL?.standardizedFileURL
-            startMonitoringDesktop()
-            scheduleDesktopScan(delay: 0.2)
+            refreshConfiguration(destinationURL: destinationURL, desktopURL: desktopURL, triggerImmediateScan: true)
         } else {
             stopMonitoring(clearDestination: true)
         }
     }
 
-    func refreshDestination(destinationURL: URL?, triggerImmediateScan: Bool) {
+    func refreshConfiguration(destinationURL: URL?, desktopURL: URL?, triggerImmediateScan: Bool) {
         guard isEnabled else {
             return
         }
 
         destinationRootURL = destinationURL?.standardizedFileURL
 
+        guard let desktopURL = desktopURL?.standardizedFileURL else {
+            stopMonitoring(clearDestination: false)
+            return
+        }
+
+        startMonitoringDesktop(desktopURL: desktopURL)
+
         if triggerImmediateScan {
             scheduleDesktopScan(delay: 0.2)
         }
     }
 
-    private func startMonitoringDesktop() {
-        guard let desktopURL = fileManager.urls(for: .desktopDirectory, in: .userDomainMask).first?.standardizedFileURL else {
-            stopMonitoring(clearDestination: true)
-            return
-        }
-
+    private func startMonitoringDesktop(desktopURL: URL) {
         if watchedDesktopURL == desktopURL, stream != nil {
             return
         }

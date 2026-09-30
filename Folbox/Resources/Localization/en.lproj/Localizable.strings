@@ -57,6 +57,17 @@
 "folbox.settings.press_shortcut" = "Press Shortcut...";
 "folbox.settings.choose_storage_folder" = "Choose Storage Folder";
 "folbox.settings.choose_auto_move_folder" = "Choose Auto Move Folder";
+"folbox.settings.choose_desktop_access_folder" = "Choose Desktop Folder for Access";
+"folbox.settings.authorize_desktop_access" = "Authorize Desktop Access";
+"folbox.settings.reauthorize_desktop_access" = "Re-authorize";
+"folbox.settings.auto_move_permission_required_title" = "Desktop Access Required";
+"folbox.settings.auto_move_permission_required_message" = "Auto Move Desktop Files requires access to your Desktop folder. Authorize Desktop access to continue.";
+"folbox.settings.auto_move_permission_missing_title" = "Desktop Access Not Granted";
+"folbox.settings.auto_move_permission_missing_message" = "Desktop access is not granted. This feature cannot be enabled until Desktop access is authorized.";
+"folbox.settings.auto_move_permission_granted_title" = "Desktop Access Granted";
+"folbox.settings.auto_move_permission_granted_message" = "Desktop access is granted. Choose a destination folder for auto-moving Desktop files.";
+"folbox.settings.auto_move_permission_available_title" = "Desktop Access Available";
+"folbox.settings.auto_move_permission_available_message" = "Desktop access is already available. Choose a destination folder for auto-moving Desktop files.";
 
 "folbox.settings.option.title_top" = "Top";
 "folbox.settings.option.title_bottom" = "Bottom";
