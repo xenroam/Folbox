@@ -145,7 +145,7 @@ struct SettingsView: View {
                         .padding(.vertical, 10)
                     }
                 }
-                sponsorSupportButton
+                donateButton
             }
             .padding(.horizontal, 2)
             .padding(.top, 2)
@@ -154,14 +154,14 @@ struct SettingsView: View {
         .background(SettingsFormScrollConfigurator())
     }
 
-    private var sponsorSupportButton: some View {
+    private var donateButton: some View {
         Button {
-            openSponsorPage()
+            openDonatePage()
         } label: {
             HStack(spacing: 5) {
                 Image(systemName: "heart.fill")
                     .font(.system(size: 13, weight: .bold))
-                Text(appSettings.t("folbox.settings.sponsor_support"))
+                Text(appSettings.t("folbox.settings.donate"))
                     .font(.system(size: 13, weight: .semibold))
             }
             .foregroundStyle(.white)
@@ -605,8 +605,8 @@ struct SettingsView: View {
         return true
     }
 
-    private func openSponsorPage() {
-        guard let url = URL(string: AppDefaults.AppInfo.sponsorURLString) else {
+    private func openDonatePage() {
+        guard let url = URL(string: AppDefaults.AppInfo.donateURLString) else {
             return
         }
         NSWorkspace.shared.open(url)

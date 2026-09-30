@@ -35,7 +35,7 @@ enum AppDefaults {
     }
 
     enum AppInfo {
-        static let sponsorURLString = "https://xenroam.github.io/Sponsor/"
+        static let donateURLString = "https://xenroam.github.io/Donate/"
         static let appcastURLString = "https://xenroam.github.io/Folbox/appcast.xml"
         static let configURLString = "https://xenroam.github.io/Folbox/folbox.json"
 

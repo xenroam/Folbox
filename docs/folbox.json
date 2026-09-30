@@ -1,6 +1,6 @@
 {
-  "Sponsor": {
-    "Url": "https://xenroam.github.io/Sponsor/"
+  "Donate": {
+    "Url": "https://xenroam.github.io/Donate/"
   },
   "Update": {
     "Appcast": "https://xenroam.github.io/Folbox/appcast.xml"

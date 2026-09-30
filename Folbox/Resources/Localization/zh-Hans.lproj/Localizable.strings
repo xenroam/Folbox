@@ -39,7 +39,7 @@
 "folbox.settings.auto_move_desktop_files" = "自动移动桌面文件";
 "folbox.settings.not_selected" = "未选择";
 "folbox.settings.change" = "更改";
-"folbox.settings.sponsor_support" = "赞助支持";
+"folbox.settings.donate" = "捐赠";
 "folbox.settings.title_position" = "标题位置";
 "folbox.settings.file_list_display" = "文件列表显示";
 "folbox.settings.expand_direction" = "展开方向";

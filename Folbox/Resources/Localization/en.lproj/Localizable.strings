@@ -39,7 +39,7 @@
 "folbox.settings.auto_move_desktop_files" = "Auto Move Desktop Files";
 "folbox.settings.not_selected" = "Not Selected";
 "folbox.settings.change" = "Change";
-"folbox.settings.sponsor_support" = "Sponsor Support";
+"folbox.settings.donate" = "Donate";
 "folbox.settings.title_position" = "Title Position";
 "folbox.settings.file_list_display" = "File List Display";
 "folbox.settings.expand_direction" = "Expand Direction";
