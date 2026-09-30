@@ -4,11 +4,11 @@
         <title>Folbox</title>
         <item>
             <title>1.1</title>
-            <pubDate>Wed, 30 Sep 2026 23:19:06 +0800</pubDate>
+            <pubDate>Thu, 01 Oct 2026 00:12:13 +0800</pubDate>
             <sparkle:version>2</sparkle:version>
             <sparkle:shortVersionString>1.1</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <enclosure url="https://github.com/xenroam/Folbox/releases/download/v1.1/Folbox-1.1.dmg" length="4509587" type="application/octet-stream" sparkle:edSignature="r3LhlD2hpqgr/3L3vsrA7gFjEv2Jla2n/5SbVZx4uMqTnuXc8/aQmW2ToCYoTlH6nJtU9kAEU7MnmRhuTT1gBQ=="/>
+            <enclosure url="https://github.com/xenroam/Folbox/releases/download/v1.1/Folbox-1.1.dmg" length="4507817" type="application/octet-stream" sparkle:edSignature="wJoutiVvZ/bYpPSwEZ0dLirCScGUHFRgXdKJaNZAvin5J85vxk4/PxdWLcEvtNj8SL2ojMr0q75zEN/G8k6SAA=="/>
         </item>
     </channel>
 </rss>
