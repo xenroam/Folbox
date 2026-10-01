@@ -156,7 +156,10 @@ struct SettingsView: View {
 
     private var donateButton: some View {
         Button {
-            openDonatePage()
+            dismissMenuWindow()
+            DispatchQueue.main.async {
+                openDonatePage()
+            }
         } label: {
             HStack(spacing: 5) {
                 Image(systemName: "heart.fill")
@@ -283,12 +286,12 @@ struct SettingsView: View {
                         range: 0.0 ... 1.0,
                         valueText: String(format: "%.0f%%", appSettings.panelBlurIntensity * 100)
                     )
-                    toggleRow(title: appSettings.t("folbox.settings.show_file_tile_border"), isOn: $appSettings.showFileTileBorder)
                     menuPickerRow(title: appSettings.t("folbox.settings.background_click"), selection: $appSettings.panelBackgroundClick) {
                         ForEach(PanelBackgroundClick.allCases) { behavior in
                             Text(behavior.displayName).tag(behavior)
                         }
                     }
+                    toggleRow(title: appSettings.t("folbox.settings.show_file_tile_border"), isOn: $appSettings.showFileTileBorder)
                 }
             }
             .padding(.horizontal, 2)
@@ -615,6 +618,14 @@ struct SettingsView: View {
             return
         }
         NSWorkspace.shared.open(url)
+    }
+
+    private func dismissMenuWindow() {
+        NSApp.sendAction(#selector(NSMenu.cancelTracking), to: nil, from: nil)
+        if let window = NSApp.keyWindow {
+            window.orderOut(nil)
+            window.close()
+        }
     }
 
     private func title(for page: SettingsPage) -> String {

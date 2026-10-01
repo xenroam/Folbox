@@ -153,6 +153,7 @@ struct ComponentWindowView: View {
                     switch appSettings.panelBackgroundClick {
                     case .expandOnly:
                         guard !panelController.isExpanded(instanceID) else { return }
+                        panelController.collapseExpandedPanels(except: instanceID)
                         panelController.toggleExpansion(for: instanceID)
                     case .expandCollapse:
                         panelController.toggleExpansion(for: instanceID)

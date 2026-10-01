@@ -175,22 +175,30 @@ final class DesktopPanelController: NSObject, ObservableObject {
     }
 
     func collapseAllExpandedPanels() {
-        if expandedInstanceIDs.isEmpty {
-            resetForegroundModeIfNeeded()
+        collapseExpandedPanels(except: nil)
+    }
+
+    func collapseExpandedPanels(except preservedID: UUID?) {
+        let idsToCollapse = expandedInstanceIDs.filter { $0 != preservedID }
+        if idsToCollapse.isEmpty {
+            if expandedInstanceIDs.isEmpty {
+                resetForegroundModeIfNeeded()
+            }
             updateOutsideClickMonitoring()
             return
         }
 
-        let ids = expandedInstanceIDs
-        expandedInstanceIDs = []
+        expandedInstanceIDs.subtract(idsToCollapse)
 
-        for id in ids {
+        for id in idsToCollapse {
             guard let instance = store.instance(with: id) else { continue }
             animatePanel(for: id, to: panelSize(for: instance, expanded: false))
         }
 
         updateOutsideClickMonitoring()
-        resetForegroundModeIfNeeded()
+        if expandedInstanceIDs.isEmpty {
+            resetForegroundModeIfNeeded()
+        }
     }
 
     private func updateOutsideClickMonitoring() {
