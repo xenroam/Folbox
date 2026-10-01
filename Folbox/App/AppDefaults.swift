@@ -8,7 +8,7 @@ enum AppDefaults {
         static let panelShortcutKeyCode = Int(UInt16.max)
         static let panelShortcutModifierFlagsRaw: UInt64 = CGEventFlags.disabled.rawValue
         static let singleClickOpensFile = false
-        static let panelAnimationDuration = 0.2
+        static let panelAnimationDuration = 0.15
         static let panelAnimationDurationRange: ClosedRange<Double> = 0.1...0.5
         static let useCustomStorageLocation = false
         static let autoMoveDesktopFilesToStorage = false
@@ -17,6 +17,7 @@ enum AppDefaults {
         static let fileListDisplayMode: FileListDisplayMode = .horizontal
         static let panelExpandDirection: PanelExpandDirection = .left
         static let panelScrollMode: PanelScrollMode = .scrollDownExpands
+        static let panelBackgroundClick: PanelBackgroundClick = .expandOnly
         static let gridColumns = 4
         static let expandedColumns = 4
         static let gridRows = 4

@@ -53,6 +53,7 @@
 "folbox.settings.component_opacity" = "Component Opacity";
 "folbox.settings.panel_blur" = "Panel Blur";
 "folbox.settings.show_file_tile_border" = "Show File Tile Border";
+"folbox.settings.background_click" = "Background Click";
 "folbox.settings.shortcut" = "Shortcut";
 "folbox.settings.press_shortcut" = "Press Shortcut...";
 "folbox.settings.choose_storage_folder" = "Choose Storage Folder";
@@ -79,6 +80,8 @@
 "folbox.settings.option.expand_right" = "Expand Right";
 "folbox.settings.option.horizontal" = "Horizontal";
 "folbox.settings.option.vertical" = "Vertical";
+"folbox.settings.option.background_click_expand_only" = "Expand Only";
+"folbox.settings.option.background_click_expand_collapse" = "Expand / Collapse";
 "folbox.settings.option.language_system" = "System";
 "folbox.settings.option.language_english" = "English";
 "folbox.settings.option.language_chinese_simplified" = "Chinese (Simplified)";

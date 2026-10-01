@@ -284,6 +284,11 @@ struct SettingsView: View {
                         valueText: String(format: "%.0f%%", appSettings.panelBlurIntensity * 100)
                     )
                     toggleRow(title: appSettings.t("folbox.settings.show_file_tile_border"), isOn: $appSettings.showFileTileBorder)
+                    menuPickerRow(title: appSettings.t("folbox.settings.background_click"), selection: $appSettings.panelBackgroundClick) {
+                        ForEach(PanelBackgroundClick.allCases) { behavior in
+                            Text(behavior.displayName).tag(behavior)
+                        }
+                    }
                 }
             }
             .padding(.horizontal, 2)

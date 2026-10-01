@@ -53,6 +53,7 @@
 "folbox.settings.component_opacity" = "元件透明度";
 "folbox.settings.panel_blur" = "面板模糊";
 "folbox.settings.show_file_tile_border" = "顯示檔案卡片邊框";
+"folbox.settings.background_click" = "背景點擊";
 "folbox.settings.shortcut" = "快捷鍵";
 "folbox.settings.press_shortcut" = "請按下快捷鍵...";
 "folbox.settings.choose_storage_folder" = "選擇儲存資料夾";
@@ -79,6 +80,8 @@
 "folbox.settings.option.expand_right" = "向右展開";
 "folbox.settings.option.horizontal" = "橫向";
 "folbox.settings.option.vertical" = "縱向";
+"folbox.settings.option.background_click_expand_only" = "展開";
+"folbox.settings.option.background_click_expand_collapse" = "展開 / 收合";
 "folbox.settings.option.language_system" = "跟隨系統";
 "folbox.settings.option.language_english" = "English";
 "folbox.settings.option.language_chinese_simplified" = "簡體中文";

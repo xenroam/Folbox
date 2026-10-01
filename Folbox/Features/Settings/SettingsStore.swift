@@ -25,6 +25,7 @@ final class SettingsStore: ObservableObject {
         var panelExpandDirection: String
         var panelAnimationDuration: Double
         var panelScrollMode: String
+        var panelBackgroundClick: String
         var fileListDisplayMode: String
         var collapsedBackgroundOpacity: Double
         var expandedBackgroundOpacity: Double
@@ -36,7 +37,7 @@ final class SettingsStore: ObservableObject {
             case language, launchAtLogin, singleClickOpensFile
             case panelShortcutKeyCode, panelShortcutModifierFlagsRaw
             case gridColumns, gridRows, expandedColumns, fileTileSize
-            case titlePosition, panelExpandDirection, panelAnimationDuration, panelScrollMode, fileListDisplayMode
+            case titlePosition, panelExpandDirection, panelAnimationDuration, panelScrollMode, panelBackgroundClick, fileListDisplayMode
             case collapsedBackgroundOpacity, expandedBackgroundOpacity, componentOpacity
             case panelBlurIntensity, showFileTileBorder
         }
@@ -55,6 +56,7 @@ final class SettingsStore: ObservableObject {
             panelExpandDirection: String,
             panelAnimationDuration: Double,
             panelScrollMode: String,
+            panelBackgroundClick: String,
             fileListDisplayMode: String,
             collapsedBackgroundOpacity: Double,
             expandedBackgroundOpacity: Double,
@@ -75,6 +77,7 @@ final class SettingsStore: ObservableObject {
             self.panelExpandDirection = panelExpandDirection
             self.panelAnimationDuration = panelAnimationDuration
             self.panelScrollMode = panelScrollMode
+            self.panelBackgroundClick = panelBackgroundClick
             self.fileListDisplayMode = fileListDisplayMode
             self.collapsedBackgroundOpacity = collapsedBackgroundOpacity
             self.expandedBackgroundOpacity = expandedBackgroundOpacity
@@ -98,6 +101,7 @@ final class SettingsStore: ObservableObject {
             panelExpandDirection = try container.decode(String.self, forKey: .panelExpandDirection)
             panelAnimationDuration = try container.decode(Double.self, forKey: .panelAnimationDuration)
             panelScrollMode = try container.decode(String.self, forKey: .panelScrollMode)
+            panelBackgroundClick = try container.decodeIfPresent(String.self, forKey: .panelBackgroundClick) ?? AppDefaults.Settings.panelBackgroundClick.rawValue
             fileListDisplayMode = try container.decodeIfPresent(String.self, forKey: .fileListDisplayMode) ?? AppDefaults.Settings.fileListDisplayMode.rawValue
 
             collapsedBackgroundOpacity = try container.decodeIfPresent(Double.self, forKey: .collapsedBackgroundOpacity) ?? AppDefaults.Settings.collapsedBackgroundOpacity
@@ -123,6 +127,7 @@ final class SettingsStore: ObservableObject {
             try container.encode(panelExpandDirection, forKey: .panelExpandDirection)
             try container.encode(panelAnimationDuration, forKey: .panelAnimationDuration)
             try container.encode(panelScrollMode, forKey: .panelScrollMode)
+            try container.encode(panelBackgroundClick, forKey: .panelBackgroundClick)
             try container.encode(fileListDisplayMode, forKey: .fileListDisplayMode)
             try container.encode(collapsedBackgroundOpacity, forKey: .collapsedBackgroundOpacity)
             try container.encode(expandedBackgroundOpacity, forKey: .expandedBackgroundOpacity)
@@ -242,6 +247,10 @@ final class SettingsStore: ObservableObject {
         didSet { persistSettingsJSON() }
     }
 
+    @Published var panelBackgroundClick: PanelBackgroundClick {
+        didSet { persistSettingsJSON() }
+    }
+
     @Published var fileListDisplayMode: FileListDisplayMode {
         didSet { persistSettingsJSON() }
     }
@@ -322,6 +331,7 @@ final class SettingsStore: ObservableObject {
         panelExpandDirection = AppDefaults.Settings.panelExpandDirection
         panelAnimationDuration = AppDefaults.Settings.panelAnimationDuration
         panelScrollMode = AppDefaults.Settings.panelScrollMode
+        panelBackgroundClick = AppDefaults.Settings.panelBackgroundClick
         fileListDisplayMode = AppDefaults.Settings.fileListDisplayMode
         collapsedBackgroundOpacity = AppDefaults.Settings.collapsedBackgroundOpacity
         expandedBackgroundOpacity = AppDefaults.Settings.expandedBackgroundOpacity
@@ -410,6 +420,7 @@ final class SettingsStore: ObservableObject {
             panelExpandDirection: panelExpandDirection.rawValue,
             panelAnimationDuration: panelAnimationDuration,
             panelScrollMode: panelScrollMode.rawValue,
+            panelBackgroundClick: panelBackgroundClick.rawValue,
             fileListDisplayMode: fileListDisplayMode.rawValue,
             collapsedBackgroundOpacity: collapsedBackgroundOpacity,
             expandedBackgroundOpacity: expandedBackgroundOpacity,
@@ -447,6 +458,9 @@ final class SettingsStore: ObservableObject {
         panelAnimationDuration = min(max(payload.panelAnimationDuration, AppDefaults.Settings.panelAnimationDurationRange.lowerBound), AppDefaults.Settings.panelAnimationDurationRange.upperBound)
         if let value = PanelScrollMode(rawValue: payload.panelScrollMode) {
             panelScrollMode = value
+        }
+        if let value = PanelBackgroundClick(rawValue: payload.panelBackgroundClick) {
+            panelBackgroundClick = value
         }
         if let value = FileListDisplayMode(rawValue: payload.fileListDisplayMode) {
             fileListDisplayMode = value
@@ -531,6 +545,22 @@ enum PanelScrollMode: String, CaseIterable, Identifiable {
             return AppLocalization.string("folbox.settings.option.scroll_down_expands")
         case .scrollUpExpands:
             return AppLocalization.string("folbox.settings.option.scroll_up_expands")
+        }
+    }
+}
+
+enum PanelBackgroundClick: String, CaseIterable, Identifiable {
+    case expandOnly
+    case expandCollapse
+
+    var id: String { rawValue }
+
+    var displayName: String {
+        switch self {
+        case .expandOnly:
+            return AppLocalization.string("folbox.settings.option.background_click_expand_only")
+        case .expandCollapse:
+            return AppLocalization.string("folbox.settings.option.background_click_expand_collapse")
         }
     }
 }

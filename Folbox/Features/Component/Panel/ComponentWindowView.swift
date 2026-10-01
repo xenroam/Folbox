@@ -150,7 +150,13 @@ struct ComponentWindowView: View {
                     selectedPaths = []
                 },
                 onBackgroundClick: {
-                    panelController.toggleExpansion(for: instanceID)
+                    switch appSettings.panelBackgroundClick {
+                    case .expandOnly:
+                        guard !panelController.isExpanded(instanceID) else { return }
+                        panelController.toggleExpansion(for: instanceID)
+                    case .expandCollapse:
+                        panelController.toggleExpansion(for: instanceID)
+                    }
                 },
                 windowDragRects: dragAreaRects,
                 allowsRubberBandSelection: true,
