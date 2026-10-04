@@ -168,6 +168,7 @@
 "folbox.rename.title" = "Rename";
 "folbox.rename.name" = "Name";
 "folbox.rename.placeholder" = "File name";
+"folbox.rename.extension_placeholder" = "Extension";
 "folbox.rename.confirm" = "Rename";
 
 "folbox.file_shortcut.window_title" = "\"%@\" Shortcut";

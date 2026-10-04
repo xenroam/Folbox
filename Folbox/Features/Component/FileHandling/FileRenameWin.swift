@@ -176,13 +176,22 @@ final class FileRenameWin: NSObject, NSWindowDelegate {
 }
 
 private struct FileRenameView: View {
-    @State private var newName: String
+    @State private var baseName: String
+    @State private var fileExtension: String
+    @FocusState private var focusedField: FocusField?
+
+    private enum FocusField {
+        case name
+        case ext
+    }
 
     let onCancel: () -> Void
     let onConfirm: (String) -> Void
 
     init(currentName: String, onCancel: @escaping () -> Void, onConfirm: @escaping (String) -> Void) {
-        _newName = State(initialValue: currentName)
+        let components = Self.splitNameAndExtension(currentName)
+        _baseName = State(initialValue: components.name)
+        _fileExtension = State(initialValue: components.ext)
         self.onCancel = onCancel
         self.onConfirm = onConfirm
     }
@@ -198,11 +207,26 @@ private struct FileRenameView: View {
                     .foregroundStyle(.secondary)
                     .frame(width: 88, alignment: .trailing)
 
-                TextField(AppLocalization.string("folbox.rename.placeholder"), text: $newName)
-                    .textFieldStyle(.roundedBorder)
-                    .onSubmit {
-                        onConfirm(newName)
-                    }
+                HStack(spacing: 6) {
+                    TextField(AppLocalization.string("folbox.rename.placeholder"), text: $baseName)
+                        .textFieldStyle(.roundedBorder)
+                        .focused($focusedField, equals: .name)
+                        .onSubmit {
+                            onConfirm(composedName())
+                        }
+
+                    Text(".")
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundStyle(.secondary)
+
+                    TextField(AppLocalization.string("folbox.rename.extension_placeholder"), text: $fileExtension)
+                        .textFieldStyle(.roundedBorder)
+                        .frame(width: 120)
+                        .focused($focusedField, equals: .ext)
+                        .onSubmit {
+                            onConfirm(composedName())
+                        }
+                }
             }
 
             HStack(spacing: 10) {
@@ -211,12 +235,42 @@ private struct FileRenameView: View {
                     onCancel()
                 }
                 Button(AppLocalization.string("folbox.rename.confirm")) {
-                    onConfirm(newName)
+                    onConfirm(composedName())
                 }
                 .keyboardShortcut(.return, modifiers: [])
             }
         }
         .padding(16)
         .frame(width: 460)
+        .onAppear {
+            focusedField = .name
+        }
+    }
+
+    private func composedName() -> String {
+        let trimmedName = baseName.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedExt = fileExtension.trimmingCharacters(in: .whitespacesAndNewlines)
+            .trimmingCharacters(in: CharacterSet(charactersIn: "."))
+
+        guard !trimmedExt.isEmpty else { return trimmedName }
+        return "\(trimmedName).\(trimmedExt)"
+    }
+
+    private static func splitNameAndExtension(_ fullName: String) -> (name: String, ext: String) {
+        guard !fullName.isEmpty else { return ("", "") }
+
+        if fullName.hasPrefix("."), !fullName.dropFirst().contains(".") {
+            return (fullName, "")
+        }
+
+        guard let dotIndex = fullName.lastIndex(of: "."),
+              dotIndex != fullName.startIndex,
+              dotIndex != fullName.index(before: fullName.endIndex) else {
+            return (fullName, "")
+        }
+
+        let name = String(fullName[..<dotIndex])
+        let ext = String(fullName[fullName.index(after: dotIndex)...])
+        return (name, ext)
     }
 }

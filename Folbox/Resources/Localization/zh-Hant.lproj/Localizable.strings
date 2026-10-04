@@ -168,6 +168,7 @@
 "folbox.rename.title" = "重新命名";
 "folbox.rename.name" = "名稱";
 "folbox.rename.placeholder" = "檔名";
+"folbox.rename.extension_placeholder" = "副檔名";
 "folbox.rename.confirm" = "重新命名";
 
 "folbox.file_shortcut.window_title" = "\"%@\" 快捷鍵";

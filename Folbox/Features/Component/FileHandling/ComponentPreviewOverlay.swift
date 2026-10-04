@@ -39,6 +39,7 @@ class OverlayNSView: NSView {
     var allowsRubberBandSelection = false
     var onRubberBandChanged: ((CGRect?) -> Void)?
     var previewProvider: (() -> PreviewPayload)?
+    var onPrimaryAction: (() -> Void)?
 
     private(set) var previewItemURLs: [URL] = []
     private var pendingPreviewIndex = 0
@@ -64,12 +65,23 @@ class OverlayNSView: NSView {
     override var acceptsFirstResponder: Bool { true }
 
     override func keyDown(with event: NSEvent) {
-        guard event.charactersIgnoringModifiers == " " else {
-            super.keyDown(with: event)
+        if event.charactersIgnoringModifiers == " " {
+            toggleQuickLook()
             return
         }
 
-        toggleQuickLook()
+        if isPrimaryActionEvent(event), let onPrimaryAction {
+            onPrimaryAction()
+            return
+        }
+
+        super.keyDown(with: event)
+    }
+
+    private func isPrimaryActionEvent(_ event: NSEvent) -> Bool {
+        let relevantModifiers = event.modifierFlags.intersection([.command, .control, .option])
+        guard relevantModifiers.isEmpty else { return false }
+        return event.keyCode == 36 || event.keyCode == 76
     }
 
     func toggleQuickLook() {

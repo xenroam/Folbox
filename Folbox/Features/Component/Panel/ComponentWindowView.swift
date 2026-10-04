@@ -159,6 +159,9 @@ struct ComponentWindowView: View {
                         panelController.toggleExpansion(for: instanceID)
                     }
                 },
+                onPrimaryAction: {
+                    openRenameForSingleSelection(instance: instance)
+                },
                 windowDragRects: dragAreaRects,
                 allowsRubberBandSelection: true,
                 onRubberBandChanged: { rect in
@@ -437,6 +440,9 @@ struct ComponentWindowView: View {
                 },
                 previewPayload: {
                     previewPayload(files: files, anchor: fileURL)
+                },
+                primaryAction: {
+                    openRenameForSingleSelection(instance: instance)
                 }
             )
             .interactiveArea()
@@ -513,5 +519,19 @@ struct ComponentWindowView: View {
         let target = anchor ?? selected.first
         let index = target.flatMap { files.firstIndex(of: $0) } ?? 0
         return PreviewPayload(items: files, index: index)
+    }
+
+    private func openRenameForSingleSelection(instance: ComponentInstance) {
+        guard selectedPaths.count == 1, let selectedPath = selectedPaths.first else { return }
+        guard instance.filePaths.contains(selectedPath) else { return }
+        guard !instanceStore.isApplicationLink(instanceID: instance.id, filePath: selectedPath) else { return }
+
+        let storedURL = URL(fileURLWithPath: selectedPath)
+        let resolvedURL = instanceStore.resolveStoredFileURL(for: storedURL)
+        FileRenameWin.shared.show(
+            instanceID: instance.id,
+            storedFilePath: selectedPath,
+            resolvedFileURL: resolvedURL
+        )
     }
 }

@@ -113,6 +113,7 @@ struct PanelDragHandleView: NSViewRepresentable {
     let onDropTargetedChange: (Bool) -> Void
     var onBackgroundMouseDown: (() -> Void)?
     var onBackgroundClick: (() -> Void)?
+    var onPrimaryAction: (() -> Void)?
     var windowDragRects: [CGRect] = []
     var allowsRubberBandSelection = false
     var onRubberBandChanged: ((CGRect?) -> Void)?
@@ -137,6 +138,7 @@ struct PanelDragHandleView: NSViewRepresentable {
         view.onDropTargetedChange = onDropTargetedChange
         view.onBackgroundMouseDown = onBackgroundMouseDown
         view.onBackgroundClick = onBackgroundClick
+        view.onPrimaryAction = onPrimaryAction
         view.windowDragRects = windowDragRects
         view.allowsRubberBandSelection = allowsRubberBandSelection
         view.onRubberBandChanged = onRubberBandChanged
