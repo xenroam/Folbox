@@ -623,6 +623,9 @@ struct ComponentWindowView: View {
     private func syncSelectionFromPreview(instance: ComponentInstance, previewURL: URL) {
         let previewPath = previewURL.path
         guard instance.filePaths.contains(previewPath) else { return }
+        if let previewIndex = instance.fileURLs.firstIndex(where: { $0.path == previewPath }) {
+            syncExpansionMode(for: previewIndex, fileCount: instance.fileURLs.count, instance: instance)
+        }
         selectedPaths = [previewPath]
         requestKeyboardFocus()
     }
