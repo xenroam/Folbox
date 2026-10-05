@@ -53,6 +53,7 @@ class OverlayNSView: NSView {
     private(set) var previewItemURLs: [URL] = []
     private var pendingPreviewIndex = 0
     private var previewIndexObservation: NSKeyValueObservation?
+    private var previewResizeObserver: NSObjectProtocol?
     private var bandStart: NSPoint?
     private var bandRect: NSRect?
 
@@ -164,17 +165,94 @@ class OverlayNSView: NSView {
         previewIndexObservation = panel.observe(\.currentPreviewItemIndex, options: [.initial, .new]) { [weak self] panel, _ in
             self?.notifyPreviewItemChanged(index: panel.currentPreviewItemIndex)
         }
+        previewResizeObserver = NotificationCenter.default.addObserver(
+            forName: NSWindow.didResizeNotification,
+            object: panel,
+            queue: .main
+        ) { [weak self] _ in
+            self?.recenterPreviewPanelIfNeeded(panel)
+        }
     }
 
     override func endPreviewPanelControl(_ panel: QLPreviewPanel!) {
         previewIndexObservation = nil
+        if let previewResizeObserver {
+            NotificationCenter.default.removeObserver(previewResizeObserver)
+            self.previewResizeObserver = nil
+        }
         panel.dataSource = nil
         panel.delegate = nil
     }
 
     private func notifyPreviewItemChanged(index: Int) {
         guard previewItemURLs.indices.contains(index) else { return }
-        onPreviewItemChanged?(previewItemURLs[index])
+        let url = previewItemURLs[index]
+        onPreviewItemChanged?(url)
+        if let panel = QLPreviewPanel.shared(), panel.isVisible {
+            adjustPreviewPanelFrame(for: url, panel: panel)
+        }
+    }
+
+    private func recenterPreviewPanelIfNeeded(_ panel: QLPreviewPanel) {
+        guard panel.isVisible else { return }
+        DispatchQueue.main.async {
+            ScreenManager.center(panel)
+        }
+    }
+
+    private func adjustPreviewPanelFrame(for url: URL, panel: QLPreviewPanel) {
+        DispatchQueue.main.async {
+            guard panel.isVisible else { return }
+            guard let imageSize = self.imagePixelSize(for: url) else { return }
+
+            let screen = panel.screen ?? ScreenManager.screenUnderMouse() ?? NSScreen.main
+            let visibleFrame = screen?.visibleFrame ?? NSScreen.main?.visibleFrame ?? .zero
+            guard visibleFrame.width > 0, visibleFrame.height > 0 else { return }
+
+            let maxContentWidth = max(320, visibleFrame.width * 0.85)
+            let maxContentHeight = max(220, visibleFrame.height * 0.85)
+            let scale = min(maxContentWidth / imageSize.width, maxContentHeight / imageSize.height, 1.0)
+            let fittedContentSize = NSSize(
+                width: max(1, floor(imageSize.width * scale)),
+                height: max(1, floor(imageSize.height * scale))
+            )
+
+            let frame = panel.frame
+            let content = panel.contentLayoutRect
+            let chromeWidth = max(0, frame.width - content.width)
+            let chromeHeight = max(0, frame.height - content.height)
+            let targetFrameSize = NSSize(
+                width: fittedContentSize.width + chromeWidth,
+                height: fittedContentSize.height + chromeHeight
+            )
+
+            let origin = NSPoint(
+                x: visibleFrame.midX - targetFrameSize.width / 2,
+                y: visibleFrame.midY - targetFrameSize.height / 2
+            )
+            let targetFrame = NSRect(origin: origin, size: targetFrameSize)
+            panel.setFrame(targetFrame, display: true, animate: false)
+        }
+    }
+
+    private func imagePixelSize(for url: URL) -> CGSize? {
+        let didAccess = url.startAccessingSecurityScopedResource()
+        defer {
+            if didAccess {
+                url.stopAccessingSecurityScopedResource()
+            }
+        }
+
+        guard let source = CGImageSourceCreateWithURL(url as CFURL, nil),
+              let properties = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any],
+              let width = properties[kCGImagePropertyPixelWidth] as? CGFloat,
+              let height = properties[kCGImagePropertyPixelHeight] as? CGFloat,
+              width > 0,
+              height > 0 else {
+            return nil
+        }
+
+        return CGSize(width: width, height: height)
     }
 
     override func hitTest(_ point: NSPoint) -> NSView? {
@@ -295,17 +373,6 @@ extension OverlayNSView: QLPreviewPanelDataSource, QLPreviewPanelDelegate {
     }
 
     func previewPanel(_ panel: QLPreviewPanel!, handle event: NSEvent!) -> Bool {
-        guard event.type == .keyDown, previewItemURLs.count > 1 else { return false }
-
-        switch event.keyCode {
-        case 123, 126:
-            panel.currentPreviewItemIndex = max(panel.currentPreviewItemIndex - 1, 0)
-            return true
-        case 124, 125:
-            panel.currentPreviewItemIndex = min(panel.currentPreviewItemIndex + 1, previewItemURLs.count - 1)
-            return true
-        default:
-            return false
-        }
+        false
     }
 }
