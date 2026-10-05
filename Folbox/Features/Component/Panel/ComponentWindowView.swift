@@ -588,7 +588,12 @@ struct ComponentWindowView: View {
         case .right:
             candidate = currentIndex + 1
         case .up:
-            candidate = currentIndex - columns
+            let currentRow = currentIndex / columns
+            if currentRow == 0 {
+                candidate = currentIndex - 1
+            } else {
+                candidate = currentIndex - columns
+            }
         case .down:
             let currentRow = currentIndex / columns
             let lastRow = (fileCount - 1) / columns
