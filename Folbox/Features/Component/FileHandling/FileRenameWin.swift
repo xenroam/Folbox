@@ -96,7 +96,7 @@ final class FileRenameWin: NSObject, NSWindowDelegate {
         let hostingController = NSHostingController(rootView: rootView)
         let containerController = makeFrostedContainerController(hostingController: hostingController)
 
-        let window = NSWindow(contentViewController: containerController)
+        let window = EscapeClosableWindow(contentViewController: containerController)
         window.title = title
         window.styleMask = [.titled, .closable, .miniaturizable, .fullSizeContentView]
         window.titleVisibility = .hidden
@@ -210,6 +210,7 @@ private struct FileRenameView: View {
                 HStack(spacing: 6) {
                     TextField(AppLocalization.string("folbox.rename.placeholder"), text: $baseName)
                         .textFieldStyle(.roundedBorder)
+                        .frame(maxWidth: .infinity)
                         .focused($focusedField, equals: .name)
                         .onSubmit {
                             onConfirm(composedName())
@@ -221,7 +222,7 @@ private struct FileRenameView: View {
 
                     TextField(AppLocalization.string("folbox.rename.extension_placeholder"), text: $fileExtension)
                         .textFieldStyle(.roundedBorder)
-                        .frame(width: 120)
+                        .frame(width: 80)
                         .focused($focusedField, equals: .ext)
                         .onSubmit {
                             onConfirm(composedName())

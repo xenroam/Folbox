@@ -88,7 +88,7 @@ final class ComponentConfigurationWin: NSObject, NSWindowDelegate {
         let hostingController = NSHostingController(rootView: rootView)
         let containerController = makeFrostedContainerController(hostingController: hostingController)
 
-        let window = NSWindow(contentViewController: containerController)
+        let window = EscapeClosableWindow(contentViewController: containerController)
         window.title = title
         window.styleMask = [.titled, .closable, .miniaturizable, .fullSizeContentView]
         window.titleVisibility = .hidden
