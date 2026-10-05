@@ -14,6 +14,7 @@ struct ComponentWindowView: View {
     @State private var dragAreaRects: [CGRect] = []
     @State private var selectedPaths: Set<String> = []
     @State private var importFailureMessage: String?
+    @State private var keyboardFocusRequestID = 0
 
     private var isExpanded: Bool {
         panelController.isExpanded(instanceID)
@@ -162,6 +163,10 @@ struct ComponentWindowView: View {
                 onPrimaryAction: {
                     openRenameForSingleSelection(instance: instance)
                 },
+                onSelectionMove: { direction in
+                    moveSelection(instance: instance, direction: direction)
+                },
+                keyboardFocusRequestID: keyboardFocusRequestID,
                 windowDragRects: dragAreaRects,
                 allowsRubberBandSelection: true,
                 onRubberBandChanged: { rect in
@@ -443,6 +448,9 @@ struct ComponentWindowView: View {
                 },
                 primaryAction: {
                     openRenameForSingleSelection(instance: instance)
+                },
+                selectionMoveAction: { direction in
+                    moveSelection(instance: instance, direction: direction)
                 }
             )
             .interactiveArea()
@@ -533,5 +541,127 @@ struct ComponentWindowView: View {
             storedFilePath: selectedPath,
             resolvedFileURL: resolvedURL
         )
+    }
+
+    private func moveSelection(instance: ComponentInstance, direction: SelectionMoveDirection) {
+        guard selectedPaths.count == 1, let selectedPath = selectedPaths.first else { return }
+        let allFiles = instance.fileURLs
+        guard !allFiles.isEmpty else { return }
+        guard let currentIndex = allFiles.firstIndex(where: { $0.path == selectedPath }) else { return }
+
+        if isExpanded {
+            let columns = min(max(allFiles.count, 1), expandedColumns)
+            var nextIndex = nextSelectionIndex(
+                currentIndex: currentIndex,
+                fileCount: allFiles.count,
+                direction: direction,
+                isExpandedMode: true
+            )
+
+            if direction == .up, nextIndex < columns {
+                let collapsedVisibleCount = GridMetrics.visibleSlotCount(
+                    fileCount: allFiles.count,
+                    columns: collapsedColumns(for: instance)
+                )
+                nextIndex = min(nextIndex, max(collapsedVisibleCount - 1, 0))
+                selectedPaths = [allFiles[nextIndex].path]
+                panelController.toggleExpansion(for: instanceID)
+                requestKeyboardFocus()
+                return
+            }
+
+            guard nextIndex != currentIndex else { return }
+            selectedPaths = [allFiles[nextIndex].path]
+            requestKeyboardFocus()
+            return
+        }
+
+        let collapsedVisibleCount = GridMetrics.visibleSlotCount(
+            fileCount: allFiles.count,
+            columns: collapsedColumns(for: instance)
+        )
+        let collapsedFiles = Array(allFiles.prefix(collapsedVisibleCount))
+        guard !collapsedFiles.isEmpty else { return }
+        guard let collapsedIndex = collapsedFiles.firstIndex(where: { $0.path == selectedPath }) else { return }
+
+        if direction == .down,
+           appSettings.fileListDisplayMode == .horizontal,
+           allFiles.count > collapsedVisibleCount {
+            panelController.toggleExpansion(for: instanceID)
+            let expandedNextIndex = nextSelectionIndex(
+                currentIndex: currentIndex,
+                fileCount: allFiles.count,
+                direction: direction,
+                isExpandedMode: true
+            )
+            guard expandedNextIndex != currentIndex else { return }
+            selectedPaths = [allFiles[expandedNextIndex].path]
+            requestKeyboardFocus()
+            return
+        }
+
+        let nextCollapsedIndex = nextSelectionIndex(
+            currentIndex: collapsedIndex,
+            fileCount: collapsedFiles.count,
+            direction: direction,
+            isExpandedMode: false
+        )
+        guard nextCollapsedIndex != collapsedIndex else { return }
+        selectedPaths = [collapsedFiles[nextCollapsedIndex].path]
+        requestKeyboardFocus()
+    }
+
+    private func nextSelectionIndex(
+        currentIndex: Int,
+        fileCount: Int,
+        direction: SelectionMoveDirection,
+        isExpandedMode: Bool
+    ) -> Int {
+        guard fileCount > 0 else { return currentIndex }
+
+        let unclamped: Int
+        if isExpandedMode {
+            let columns = min(max(fileCount, 1), expandedColumns)
+            switch direction {
+            case .left:
+                unclamped = currentIndex - 1
+            case .right:
+                unclamped = currentIndex + 1
+            case .up:
+                unclamped = currentIndex - columns
+            case .down:
+                let currentRow = currentIndex / columns
+                let lastRow = (fileCount - 1) / columns
+                if currentRow == lastRow {
+                    unclamped = currentIndex + 1
+                } else {
+                    unclamped = currentIndex + columns
+                }
+            }
+        } else if appSettings.fileListDisplayMode == .vertical {
+            switch direction {
+            case .up:
+                unclamped = currentIndex - 1
+            case .down:
+                unclamped = currentIndex + 1
+            case .left, .right:
+                unclamped = currentIndex
+            }
+        } else {
+            switch direction {
+            case .left:
+                unclamped = currentIndex - 1
+            case .right:
+                unclamped = currentIndex + 1
+            case .up, .down:
+                unclamped = currentIndex
+            }
+        }
+
+        return min(max(unclamped, 0), fileCount - 1)
+    }
+
+    private func requestKeyboardFocus() {
+        keyboardFocusRequestID &+= 1
     }
 }

@@ -12,6 +12,7 @@ struct FileDragSourceView: NSViewRepresentable {
     var onClearSelection: (() -> Void)?
     var previewPayloadProvider: (() -> PreviewPayload)?
     var onPrimaryAction: (() -> Void)?
+    var onSelectionMove: ((SelectionMoveDirection) -> Void)?
 
     func makeNSView(context: Context) -> FileDragNSView {
         let view = FileDragNSView()
@@ -34,6 +35,7 @@ struct FileDragSourceView: NSViewRepresentable {
         view.onClearSelection = onClearSelection
         view.previewProvider = previewPayloadProvider
         view.onPrimaryAction = onPrimaryAction
+        view.onSelectionMove = onSelectionMove
     }
 }
 

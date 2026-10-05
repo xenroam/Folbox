@@ -114,6 +114,8 @@ struct PanelDragHandleView: NSViewRepresentable {
     var onBackgroundMouseDown: (() -> Void)?
     var onBackgroundClick: (() -> Void)?
     var onPrimaryAction: (() -> Void)?
+    var onSelectionMove: ((SelectionMoveDirection) -> Void)?
+    var keyboardFocusRequestID: Int = 0
     var windowDragRects: [CGRect] = []
     var allowsRubberBandSelection = false
     var onRubberBandChanged: ((CGRect?) -> Void)?
@@ -139,6 +141,8 @@ struct PanelDragHandleView: NSViewRepresentable {
         view.onBackgroundMouseDown = onBackgroundMouseDown
         view.onBackgroundClick = onBackgroundClick
         view.onPrimaryAction = onPrimaryAction
+        view.onSelectionMove = onSelectionMove
+        view.keyboardFocusRequestID = keyboardFocusRequestID
         view.windowDragRects = windowDragRects
         view.allowsRubberBandSelection = allowsRubberBandSelection
         view.onRubberBandChanged = onRubberBandChanged
@@ -152,6 +156,15 @@ final class PanelDragNSView: OverlayNSView {
     var onBackgroundMouseDown: (() -> Void)?
     var onBackgroundClick: (() -> Void)?
     var windowDragRects: [CGRect] = []
+    var keyboardFocusRequestID: Int = 0 {
+        didSet {
+            guard keyboardFocusRequestID != oldValue else { return }
+            DispatchQueue.main.async { [weak self] in
+                guard let self, let window = self.window, window.isKeyWindow else { return }
+                window.makeFirstResponder(self)
+            }
+        }
+    }
 
     private static let clickTolerance: CGFloat = 5
 

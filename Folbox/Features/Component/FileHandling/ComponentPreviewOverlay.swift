@@ -2,6 +2,13 @@ import AppKit
 import Quartz
 import SwiftUI
 
+enum SelectionMoveDirection {
+    case up
+    case down
+    case left
+    case right
+}
+
 struct FileThumbnailView: View {
     let url: URL
     let size: CGFloat
@@ -40,6 +47,7 @@ class OverlayNSView: NSView {
     var onRubberBandChanged: ((CGRect?) -> Void)?
     var previewProvider: (() -> PreviewPayload)?
     var onPrimaryAction: (() -> Void)?
+    var onSelectionMove: ((SelectionMoveDirection) -> Void)?
 
     private(set) var previewItemURLs: [URL] = []
     private var pendingPreviewIndex = 0
@@ -70,6 +78,11 @@ class OverlayNSView: NSView {
             return
         }
 
+        if let direction = selectionMoveDirection(for: event), let onSelectionMove {
+            onSelectionMove(direction)
+            return
+        }
+
         if isPrimaryActionEvent(event), let onPrimaryAction {
             onPrimaryAction()
             return
@@ -82,6 +95,24 @@ class OverlayNSView: NSView {
         let relevantModifiers = event.modifierFlags.intersection([.command, .control, .option])
         guard relevantModifiers.isEmpty else { return false }
         return event.keyCode == 36 || event.keyCode == 76
+    }
+
+    private func selectionMoveDirection(for event: NSEvent) -> SelectionMoveDirection? {
+        let relevantModifiers = event.modifierFlags.intersection([.command, .control, .option])
+        guard relevantModifiers.isEmpty else { return nil }
+
+        switch event.keyCode {
+        case 123:
+            return .left
+        case 124:
+            return .right
+        case 125:
+            return .down
+        case 126:
+            return .up
+        default:
+            return nil
+        }
     }
 
     func toggleQuickLook() {
