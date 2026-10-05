@@ -47,7 +47,7 @@ class OverlayNSView: NSView {
     var onRubberBandChanged: ((CGRect?) -> Void)?
     var previewProvider: (() -> PreviewPayload)?
     var onPrimaryAction: (() -> Void)?
-    var onSelectionMove: ((SelectionMoveDirection) -> Void)?
+    var onSelectionMove: ((SelectionMoveDirection) -> String?)?
     var onPreviewItemChanged: ((URL) -> Void)?
 
     private(set) var previewItemURLs: [URL] = []
@@ -82,7 +82,7 @@ class OverlayNSView: NSView {
         }
 
         if let direction = selectionMoveDirection(for: event), let onSelectionMove {
-            onSelectionMove(direction)
+            _ = onSelectionMove(direction)
             return
         }
 
@@ -373,6 +373,20 @@ extension OverlayNSView: QLPreviewPanelDataSource, QLPreviewPanelDelegate {
     }
 
     func previewPanel(_ panel: QLPreviewPanel!, handle event: NSEvent!) -> Bool {
-        false
+        guard event.type == .keyDown,
+              let direction = selectionMoveDirection(for: event) else {
+            return false
+        }
+
+        guard let onSelectionMove else {
+            return true
+        }
+
+        let selectedPath = onSelectionMove(direction)
+        if let selectedPath,
+           let index = previewItemURLs.firstIndex(where: { $0.path == selectedPath }) {
+            panel.currentPreviewItemIndex = index
+        }
+        return true
     }
 }

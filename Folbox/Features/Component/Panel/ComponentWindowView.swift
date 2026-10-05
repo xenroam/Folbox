@@ -549,11 +549,11 @@ struct ComponentWindowView: View {
         )
     }
 
-    private func moveSelection(instance: ComponentInstance, direction: SelectionMoveDirection) {
-        guard selectedPaths.count == 1, let selectedPath = selectedPaths.first else { return }
+    private func moveSelection(instance: ComponentInstance, direction: SelectionMoveDirection) -> String? {
+        guard selectedPaths.count == 1, let selectedPath = selectedPaths.first else { return nil }
         let allFiles = instance.fileURLs
-        guard !allFiles.isEmpty else { return }
-        guard let currentIndex = allFiles.firstIndex(where: { $0.path == selectedPath }) else { return }
+        guard !allFiles.isEmpty else { return nil }
+        guard let currentIndex = allFiles.firstIndex(where: { $0.path == selectedPath }) else { return nil }
 
         if isExpanded {
             let columns = min(max(allFiles.count, 1), expandedColumns)
@@ -573,13 +573,13 @@ struct ComponentWindowView: View {
                 selectedPaths = [allFiles[nextIndex].path]
                 panelController.toggleExpansion(for: instanceID)
                 requestKeyboardFocus()
-                return
+                return allFiles[nextIndex].path
             }
 
-            guard nextIndex != currentIndex else { return }
+            guard nextIndex != currentIndex else { return selectedPath }
             selectedPaths = [allFiles[nextIndex].path]
             requestKeyboardFocus()
-            return
+            return allFiles[nextIndex].path
         }
 
         let collapsedVisibleCount = GridMetrics.visibleSlotCount(
@@ -587,8 +587,8 @@ struct ComponentWindowView: View {
             columns: collapsedColumns(for: instance)
         )
         let collapsedFiles = Array(allFiles.prefix(collapsedVisibleCount))
-        guard !collapsedFiles.isEmpty else { return }
-        guard let collapsedIndex = collapsedFiles.firstIndex(where: { $0.path == selectedPath }) else { return }
+        guard !collapsedFiles.isEmpty else { return nil }
+        guard let collapsedIndex = collapsedFiles.firstIndex(where: { $0.path == selectedPath }) else { return nil }
 
         if direction == .down,
            appSettings.fileListDisplayMode == .horizontal,
@@ -600,10 +600,10 @@ struct ComponentWindowView: View {
                 direction: direction,
                 isExpandedMode: true
             )
-            guard expandedNextIndex != currentIndex else { return }
+            guard expandedNextIndex != currentIndex else { return selectedPath }
             selectedPaths = [allFiles[expandedNextIndex].path]
             requestKeyboardFocus()
-            return
+            return allFiles[expandedNextIndex].path
         }
 
         let nextCollapsedIndex = nextSelectionIndex(
@@ -612,9 +612,10 @@ struct ComponentWindowView: View {
             direction: direction,
             isExpandedMode: false
         )
-        guard nextCollapsedIndex != collapsedIndex else { return }
+        guard nextCollapsedIndex != collapsedIndex else { return selectedPath }
         selectedPaths = [collapsedFiles[nextCollapsedIndex].path]
         requestKeyboardFocus()
+        return collapsedFiles[nextCollapsedIndex].path
     }
 
     private func nextSelectionIndex(

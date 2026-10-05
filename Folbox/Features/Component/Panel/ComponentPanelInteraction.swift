@@ -114,7 +114,7 @@ struct PanelDragHandleView: NSViewRepresentable {
     var onBackgroundMouseDown: (() -> Void)?
     var onBackgroundClick: (() -> Void)?
     var onPrimaryAction: (() -> Void)?
-    var onSelectionMove: ((SelectionMoveDirection) -> Void)?
+    var onSelectionMove: ((SelectionMoveDirection) -> String?)?
     var onPreviewItemChanged: ((URL) -> Void)?
     var keyboardFocusRequestID: Int = 0
     var windowDragRects: [CGRect] = []

@@ -82,7 +82,7 @@ struct FileSlotView: View {
     let clearSelectionAction: () -> Void
     let previewPayload: () -> PreviewPayload
     let primaryAction: () -> Void
-    let selectionMoveAction: (SelectionMoveDirection) -> Void
+    let selectionMoveAction: (SelectionMoveDirection) -> String?
     let previewSelectionAction: (URL) -> Void
 
     var body: some View {
