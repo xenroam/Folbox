@@ -600,7 +600,12 @@ struct ComponentWindowView: View {
             if currentRow == lastRow {
                 candidate = currentIndex + 1
             } else {
-                candidate = currentIndex + columns
+                let projected = currentIndex + columns
+                if projected >= fileCount {
+                    candidate = (currentRow + 1) * columns
+                } else {
+                    candidate = projected
+                }
             }
         }
 
