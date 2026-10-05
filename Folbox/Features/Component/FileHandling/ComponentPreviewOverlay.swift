@@ -48,9 +48,11 @@ class OverlayNSView: NSView {
     var previewProvider: (() -> PreviewPayload)?
     var onPrimaryAction: (() -> Void)?
     var onSelectionMove: ((SelectionMoveDirection) -> Void)?
+    var onPreviewItemChanged: ((URL) -> Void)?
 
     private(set) var previewItemURLs: [URL] = []
     private var pendingPreviewIndex = 0
+    private var previewIndexObservation: NSKeyValueObservation?
     private var bandStart: NSPoint?
     private var bandRect: NSRect?
 
@@ -159,11 +161,20 @@ class OverlayNSView: NSView {
         panel.delegate = self
         panel.reloadData()
         panel.currentPreviewItemIndex = min(max(pendingPreviewIndex, 0), max(previewItemURLs.count - 1, 0))
+        previewIndexObservation = panel.observe(\.currentPreviewItemIndex, options: [.initial, .new]) { [weak self] panel, _ in
+            self?.notifyPreviewItemChanged(index: panel.currentPreviewItemIndex)
+        }
     }
 
     override func endPreviewPanelControl(_ panel: QLPreviewPanel!) {
+        previewIndexObservation = nil
         panel.dataSource = nil
         panel.delegate = nil
+    }
+
+    private func notifyPreviewItemChanged(index: Int) {
+        guard previewItemURLs.indices.contains(index) else { return }
+        onPreviewItemChanged?(previewItemURLs[index])
     }
 
     override func hitTest(_ point: NSPoint) -> NSView? {
@@ -287,10 +298,10 @@ extension OverlayNSView: QLPreviewPanelDataSource, QLPreviewPanelDelegate {
         guard event.type == .keyDown, previewItemURLs.count > 1 else { return false }
 
         switch event.keyCode {
-        case 126:
+        case 123, 126:
             panel.currentPreviewItemIndex = max(panel.currentPreviewItemIndex - 1, 0)
             return true
-        case 125:
+        case 124, 125:
             panel.currentPreviewItemIndex = min(panel.currentPreviewItemIndex + 1, previewItemURLs.count - 1)
             return true
         default:

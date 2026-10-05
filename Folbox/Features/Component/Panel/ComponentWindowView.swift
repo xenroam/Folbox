@@ -166,6 +166,9 @@ struct ComponentWindowView: View {
                 onSelectionMove: { direction in
                     moveSelection(instance: instance, direction: direction)
                 },
+                onPreviewItemChanged: { previewURL in
+                    syncSelectionFromPreview(instance: instance, previewURL: previewURL)
+                },
                 keyboardFocusRequestID: keyboardFocusRequestID,
                 windowDragRects: dragAreaRects,
                 allowsRubberBandSelection: true,
@@ -451,6 +454,9 @@ struct ComponentWindowView: View {
                 },
                 selectionMoveAction: { direction in
                     moveSelection(instance: instance, direction: direction)
+                },
+                previewSelectionAction: { previewURL in
+                    syncSelectionFromPreview(instance: instance, previewURL: previewURL)
                 }
             )
             .interactiveArea()
@@ -663,5 +669,12 @@ struct ComponentWindowView: View {
 
     private func requestKeyboardFocus() {
         keyboardFocusRequestID &+= 1
+    }
+
+    private func syncSelectionFromPreview(instance: ComponentInstance, previewURL: URL) {
+        let previewPath = previewURL.path
+        guard instance.filePaths.contains(previewPath) else { return }
+        selectedPaths = [previewPath]
+        requestKeyboardFocus()
     }
 }

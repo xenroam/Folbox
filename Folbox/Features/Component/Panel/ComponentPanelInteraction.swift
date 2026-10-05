@@ -115,6 +115,7 @@ struct PanelDragHandleView: NSViewRepresentable {
     var onBackgroundClick: (() -> Void)?
     var onPrimaryAction: (() -> Void)?
     var onSelectionMove: ((SelectionMoveDirection) -> Void)?
+    var onPreviewItemChanged: ((URL) -> Void)?
     var keyboardFocusRequestID: Int = 0
     var windowDragRects: [CGRect] = []
     var allowsRubberBandSelection = false
@@ -142,6 +143,7 @@ struct PanelDragHandleView: NSViewRepresentable {
         view.onBackgroundClick = onBackgroundClick
         view.onPrimaryAction = onPrimaryAction
         view.onSelectionMove = onSelectionMove
+        view.onPreviewItemChanged = onPreviewItemChanged
         view.keyboardFocusRequestID = keyboardFocusRequestID
         view.windowDragRects = windowDragRects
         view.allowsRubberBandSelection = allowsRubberBandSelection
