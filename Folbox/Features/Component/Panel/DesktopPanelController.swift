@@ -174,6 +174,13 @@ final class DesktopPanelController: NSObject, ObservableObject {
         updateOutsideClickMonitoring()
     }
 
+    func setExpansion(for id: UUID, expanded: Bool) {
+        guard store.instance(with: id) != nil else { return }
+        let isCurrentlyExpanded = expandedInstanceIDs.contains(id)
+        guard isCurrentlyExpanded != expanded else { return }
+        toggleExpansion(for: id)
+    }
+
     func collapseAllExpandedPanels() {
         collapseExpandedPanels(except: nil)
     }

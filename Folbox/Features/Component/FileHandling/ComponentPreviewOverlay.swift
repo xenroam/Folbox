@@ -47,8 +47,9 @@ class OverlayNSView: NSView {
     var onRubberBandChanged: ((CGRect?) -> Void)?
     var previewProvider: (() -> PreviewPayload)?
     var onPrimaryAction: (() -> Void)?
-    var onSelectionMove: ((SelectionMoveDirection) -> String?)?
+    var onSelectionMove: ((SelectionMoveDirection) -> Void)?
     var onPreviewItemChanged: ((URL) -> Void)?
+    var onPreviewSelectionMove: ((URL, SelectionMoveDirection) -> URL?)?
 
     private(set) var previewItemURLs: [URL] = []
     private var pendingPreviewIndex = 0
@@ -82,7 +83,7 @@ class OverlayNSView: NSView {
         }
 
         if let direction = selectionMoveDirection(for: event), let onSelectionMove {
-            _ = onSelectionMove(direction)
+            onSelectionMove(direction)
             return
         }
 
@@ -209,8 +210,8 @@ class OverlayNSView: NSView {
             let visibleFrame = screen?.visibleFrame ?? NSScreen.main?.visibleFrame ?? .zero
             guard visibleFrame.width > 0, visibleFrame.height > 0 else { return }
 
-            let maxContentWidth = max(320, visibleFrame.width * 0.85)
-            let maxContentHeight = max(220, visibleFrame.height * 0.85)
+            let maxContentWidth = max(120, visibleFrame.width * 0.85)
+            let maxContentHeight = max(120, visibleFrame.height * 0.85)
             let scale = min(maxContentWidth / imageSize.width, maxContentHeight / imageSize.height, 1.0)
             let fittedContentSize = NSSize(
                 width: max(1, floor(imageSize.width * scale)),
@@ -373,19 +374,15 @@ extension OverlayNSView: QLPreviewPanelDataSource, QLPreviewPanelDelegate {
     }
 
     func previewPanel(_ panel: QLPreviewPanel!, handle event: NSEvent!) -> Bool {
-        guard event.type == .keyDown,
-              let direction = selectionMoveDirection(for: event) else {
-            return false
-        }
+        guard event.type == .keyDown else { return false }
+        guard let direction = selectionMoveDirection(for: event) else { return false }
+        guard previewItemURLs.indices.contains(panel.currentPreviewItemIndex) else { return false }
+        guard let onPreviewSelectionMove else { return false }
 
-        guard let onSelectionMove else {
-            return true
-        }
-
-        let selectedPath = onSelectionMove(direction)
-        if let selectedPath,
-           let index = previewItemURLs.firstIndex(where: { $0.path == selectedPath }) {
-            panel.currentPreviewItemIndex = index
+        let currentURL = previewItemURLs[panel.currentPreviewItemIndex]
+        if let nextURL = onPreviewSelectionMove(currentURL, direction),
+           let targetIndex = previewItemURLs.firstIndex(of: nextURL) {
+            panel.currentPreviewItemIndex = targetIndex
         }
         return true
     }

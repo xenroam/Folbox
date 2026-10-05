@@ -82,8 +82,9 @@ struct FileSlotView: View {
     let clearSelectionAction: () -> Void
     let previewPayload: () -> PreviewPayload
     let primaryAction: () -> Void
-    let selectionMoveAction: (SelectionMoveDirection) -> String?
+    let selectionMoveAction: (SelectionMoveDirection) -> Void
     let previewSelectionAction: (URL) -> Void
+    let previewMoveAction: (URL, SelectionMoveDirection) -> URL?
 
     var body: some View {
         let tileSize = appSettings.fileTileSize
@@ -139,7 +140,8 @@ struct FileSlotView: View {
                 previewPayloadProvider: previewPayload,
                 onPrimaryAction: primaryAction,
                 onSelectionMove: selectionMoveAction,
-                onPreviewItemChanged: previewSelectionAction
+                onPreviewItemChanged: previewSelectionAction,
+                onPreviewSelectionMove: previewMoveAction
             )
         )
     }
