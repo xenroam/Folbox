@@ -618,6 +618,13 @@ struct ComponentWindowView: View {
     }
 
     private func syncExpansionMode(for targetIndex: Int, fileCount: Int, instance: ComponentInstance) {
+        if isExpanded {
+            let columns = min(max(fileCount, 1), expandedColumns)
+            if targetIndex < columns {
+                return
+            }
+        }
+
         let collapsedVisibleCount = GridMetrics.visibleSlotCount(
             fileCount: fileCount,
             columns: collapsedColumns(for: instance)
